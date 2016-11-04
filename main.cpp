@@ -2,8 +2,6 @@
 // Jonathan Bouchard & Pierre-Anthony Houle
 // 04 novembre 2016
 // Créer une file de clients
-
-
 #include "Constantes.h"
 #include "Quincaillerie.h"
 #include "ClientParticulier.h"
@@ -106,11 +104,20 @@ void LireFichierOpérations(ifstream & Fichier, Quincaillerie& Magasin)
 
 int main()
 {
-	std::locale::global(std::locale("")); //Permet les charactères français
+ 	locale::global(locale("")); //Permet les charactères français
 	Quincaillerie Magasin(NBCAISSES);
+
+	/****SA MARCHE PAS**/
+	Magasin.GetCaisses()[0].AjouterTempsFile(100);
+	cout << Magasin.GetCaisses()[0].GetTempsFile() << endl;
+	/****SA MARCHE PAS**/
+
+	/*cout << Magasin.GetCaissePlusRapide().GetTempsFile() << endl;
 	ifstream FichierClients = DemanderFichierClients();
-	LireFichierClients(FichierClients);
+	LireFichierClients(FichierClients);*/
+
+
 	/*ifstream FichierOpérations = DemanderFichierOpérations();
 	LireFichierOpérations(FichierOpérations);*/
-	Client::Test();
+	/*Client::Test();*/
 }
