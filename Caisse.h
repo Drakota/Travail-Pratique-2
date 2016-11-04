@@ -1,6 +1,7 @@
 #pragma once
 #include "Client.h"
 #include <deque>
+#include "Constantes.h"
 
 class Caisse
 {

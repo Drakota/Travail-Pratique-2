@@ -37,11 +37,11 @@ void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
 	}
 	else if (VectorElems[0] == QUITTERCAISSE)
 	{
-		Magasin.GetCaisses().at(stoi(VectorElems[1]) - 1).FermerCaisser();
+
 	}
 	else if (VectorElems[0] == FERMERCAISSE)
 	{
-
+		Magasin.GetCaisses().at(stoi(VectorElems[1]) - 1).FermerCaisser();
 	}
 	else cout << "Type d'opération inconnu..." << endl; 
 }
@@ -106,5 +106,5 @@ int main()
 	LireFichierClients(FichierClients);
 	/*ifstream FichierOpérations = DemanderFichierOpérations();
 	LireFichierOpérations(FichierOpérations);*/
-	/*Client::Test();*/
+	Client::Test();
 }
