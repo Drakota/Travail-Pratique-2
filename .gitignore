@@ -3,3 +3,11 @@ Debug/vc140.pdb
 *.idb
 Debug/TP2.pdb
 *.ilk
+*.obj
+Debug/TP2.ilk
+*.pdb
+Debug/TP2.tlog/link.read.1.tlog
+*.pdb
+*.suo
+Debug/main.obj
+*.db
