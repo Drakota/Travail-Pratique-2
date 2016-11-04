@@ -1,7 +1,7 @@
 // Main.cpp
 // Jonathan Bouchard & Pierre-Anthony Houle
 // 04 novembre 2016
-// Créer une fille de clients
+// Créer une file de clients
 
 
 #include "Constantes.h"
