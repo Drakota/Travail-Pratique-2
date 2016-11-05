@@ -107,17 +107,23 @@ int main()
  	locale::global(locale("")); //Permet les charactères français
 	Quincaillerie Magasin(NBCAISSES);
 
-	/****SA MARCHE PAS**/
 	Magasin.GetCaisses()[0].AjouterTempsFile(100);
-	cout << Magasin.GetCaisses()[0].GetTempsFile() << endl;
-	/****SA MARCHE PAS**/
+	Magasin.GetCaisses()[1].AjouterTempsFile(100);
+	Magasin.GetCaisses()[2].AjouterTempsFile(100);
+	Magasin.GetCaisses()[3].AjouterTempsFile(100);
+	Magasin.GetCaisses()[4].AjouterTempsFile(100);
+	Magasin.GetCaisses()[5].AjouterTempsFile(0);
+	Magasin.GetCaisses()[5].AjouterTempsFile(10);
+	Magasin.GetCaisses()[5].AjouterTempsFile(10);
 
-	/*cout << Magasin.GetCaissePlusRapide().GetTempsFile() << endl;
+	cout << Magasin.GetCaisses()[0].ConvertirMinute("4:20") << endl;
+
+	cout << Magasin.GetCaissePlusRapide().GetTempsFile() << endl;
 	ifstream FichierClients = DemanderFichierClients();
-	LireFichierClients(FichierClients);*/
+	LireFichierClients(FichierClients);
 
 
 	/*ifstream FichierOpérations = DemanderFichierOpérations();
 	LireFichierOpérations(FichierOpérations);*/
-	/*Client::Test();*/
+	Client::Test();
 }

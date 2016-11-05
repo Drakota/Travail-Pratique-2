@@ -15,5 +15,5 @@ public:
 	void FermerCaisser() { status = FERMÉ; }
 	bool GetStatus() const { return status; }
 	int GetTempsFile() const { return tempsFile; }
-	void AjouterTempsFile(int t) { tempsFile = t; }
+	void AjouterTempsFile(int t) { tempsFile += t; }
 };

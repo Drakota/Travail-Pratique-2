@@ -3,11 +3,11 @@
 #include "Caisse.h"
 class Quincaillerie
 {
-	vector<Caisse> vCaisses;
 public:
+	vector<Caisse> vCaisses;
 	Caisse Test;
 	Quincaillerie(int NBCaisse);
-	vector<Caisse> GetCaisses() const { return vCaisses; }
+    vector<Caisse> & GetCaisses() { return vCaisses; }
 	Caisse GetCaissePlusRapide();
 };
 
