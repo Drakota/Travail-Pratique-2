@@ -7,15 +7,15 @@
 #include "ClientParticulier.h"
 #include "ClientPrivilégié.h"
 #include "ClientCommercial.h"
+#include "SourceLecture.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 
 
-ifstream DemanderFichierClients();
-ifstream DemanderFichierOpérations();
-void LireFichierClients(ifstream& Fichier);
+void DemanderFichier(bool i, SourceLecture& fichier);
+void LireFichierClients(SourceLecture& fichier);
 void LireFichierOpérations(ifstream& Fichier, Quincaillerie& Magasin);
 void CreerClient(vector<string> VectorElems);
 void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin);
@@ -50,52 +50,37 @@ void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
 	else cout << "Type d'opération inconnu..." << endl; 
 }
 
-ifstream DemanderFichierClients()
+void DemanderFichier(bool i, SourceLecture& fichier)
 {
-	ifstream Fichier; // ifstream correspondant au fichier contenant les données
 	string nomFichier; // Variable qui retient le nom du fichier
+	SourceLecture Fichier; // SourceLecture correspondant au fichier contenant les données
 	do
 	{
 		cout << "------------------------------------" << endl;
-		cout << "Entrez un nom de fichier de clients: " << endl;
+		if (i == CLIENT) cout << "Entrez un nom de fichier de clients: " << endl;
+		else if (i == OPÉRATIONS) cout << "Entrez un nom de fichier d'opérations: " << endl;
 		cout << "------------------------------------" << endl;
 		cin >> nomFichier;
-		Fichier.open(nomFichier);
-	} while (Fichier.fail());
-	return Fichier;
+		Fichier.SetNomSourceLecture(nomFichier);
+	} while (!Fichier.EstCapableDeLire());
 }
 
-ifstream DemanderFichierOpérations()
+void LireFichierClients(SourceLecture& fichier)
 {
-	ifstream Fichier; // ifstream correspondant au fichier contenant les données
-	string nomFichier; // Variable qui retient le nom du fichier
-	do
-	{
-		cout << "--------------------------------------" << endl;
-		cout << "Entrez un nom de fichier d'opérations: " << endl;
-		cout << "--------------------------------------" << endl;
-		cin >> nomFichier;
-		Fichier.open(nomFichier);
-	} while (Fichier.fail());
-	return Fichier;
-}
-
-void LireFichierClients(ifstream& fichier)
-{
-	string ligne;
-	string elem;
-	/********************TROUVER UN FIX POUR PERMETTRE DES ESPACES AVANT LES MOTS*********************/
-	while(getline(fichier, ligne, endline))
-	{
-		vector<string> VectorElems;
-		stringstream ss(ligne);
-		while (ss.good())
-		{
-			getline(ss, elem, delim);
-			VectorElems.push_back(elem);
-		}
-		CreerClient(VectorElems);
-	}
+	//string ligne;
+	//string elem;
+	///********************TROUVER UN FIX POUR PERMETTRE DES ESPACES AVANT LES MOTS*********************/
+	//while(getline(fichier, ligne, endline))
+	//{
+	//	vector<string> VectorElems;
+	//	stringstream ss(ligne);
+	//	while (ss.good())
+	//	{
+	//		getline(ss, elem, delim);
+	//		VectorElems.push_back(elem);
+	//	}
+	//	CreerClient(VectorElems);
+	//}
 }
 
 void LireFichierOpérations(ifstream & Fichier, Quincaillerie& Magasin)
@@ -105,6 +90,7 @@ void LireFichierOpérations(ifstream & Fichier, Quincaillerie& Magasin)
 int main()
 {
  	locale::global(locale("")); //Permet les charactères français
+	SourceLecture Fichier;
 	Quincaillerie Magasin(NBCAISSES);
 
 	Magasin.GetCaisses()[0].AjouterTempsFile(100);
@@ -119,8 +105,8 @@ int main()
 	cout << Magasin.GetCaisses()[0].ConvertirMinute("4:20") << endl;
 
 	cout << Magasin.GetCaissePlusRapide().GetTempsFile() << endl;
-	ifstream FichierClients = DemanderFichierClients();
-	LireFichierClients(FichierClients);
+    DemanderFichier(CLIENT, Fichier);
+	LireFichierClients(Fichier);
 
 
 	/*ifstream FichierOpérations = DemanderFichierOpérations();

@@ -3,6 +3,7 @@
 using namespace std;
 
 enum Status { OUVERT, FERMÉ };
+enum DemanderFichier { CLIENT, OPÉRATIONS };
 const char delim = ';';
 const char endline = '\n';
 const string TYPEPARTICULIER = "pa";
