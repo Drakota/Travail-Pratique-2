@@ -10,6 +10,7 @@
 #include <string>
 #include <sstream>
 #include <string>
+#include <vector>
 using namespace std;
 
 class SourceLecture
@@ -27,7 +28,7 @@ public:
 	bool EstCapableDeLire();
 
 	//----- Méthode qui permet d'obtenir la prochaine valeur lue
-	void Lire(int & ligne, int & colonne);
+	void Lire(vector<string> & vecElems);
 	int  LireEntier();
 	double LireDouble();
 	string LireChaine(); 

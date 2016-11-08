@@ -5,6 +5,8 @@
 // par Pierre Prud'homme, octobre 2005
 //--------------------------------------------------------
 #include "sourcelecture.h"
+#include <vector>
+#include <iostream>
 
 SourceLecture::~SourceLecture()
 {
@@ -12,7 +14,7 @@ SourceLecture::~SourceLecture()
 
 void SourceLecture::SetNomSourceLecture(string &sNom)
 {
-	fEntrée.open(sNom.c_str(), ios::in);
+	fEntrée.open(sNom);
 	SetOuvertureReussie(!fEntrée.fail());
 }
 
@@ -45,22 +47,22 @@ double  SourceLecture::LireDouble()
 	return valeur;
 }
 
-void SourceLecture::Lire(int & ligne, int & colonne)
+void SourceLecture::Lire(vector<string> & vecElems)
 {
-	const char ARRET_COORDONNÉE = ';';
-	const char SEPARATEUR_COORDONNÉE = ',';
-	string coordonnéeLue;
-	string chaineLigne;
-	string chaineColonne;
+	const char ENDLINE = '\n';
+	const char ARRET = ';';
+	string ligne;
+	string elem;
 
-	// lire jusqu'au ';' ou la fin de ligne
-	getline(fEntrée, coordonnéeLue, ARRET_COORDONNÉE);
-	int positionVirgule = coordonnéeLue.find(SEPARATEUR_COORDONNÉE);
-	chaineLigne = coordonnéeLue.substr(0, positionVirgule);
-	chaineColonne = coordonnéeLue.substr(positionVirgule + 1, string::npos);
-
-	flux << chaineLigne;   flux >> ligne;   flux.clear(); // nécessaire...
-	flux << chaineColonne; flux >> colonne; flux.clear(); 
+	getline(fEntrée, ligne, ENDLINE);
+	stringstream ss(ligne);
+	do
+	{
+		getline(ss, elem, ARRET);
+		elem = Trim(elem); 
+		vecElems.push_back(elem);
+	} while (ss.good());
+	//IL Y A UN ENDLINE DE TROP LE SS.GOOD FAIT UNE LOOP DE TROP//
 }
 
 char SourceLecture::LireCaractere()
@@ -87,15 +89,24 @@ string SourceLecture::LireChaine()
 
 string SourceLecture::Trim(string chaine)
 {
-	const char LF = char(10);
-	string resultat = "";
-	int positionFin = chaine.size() - 1;
-	int positionDebut = 0;
+	if (chaine != "")
+	{
+		const char LF = char(10);
+		string resultat = "";
+		int positionFin = chaine.size() - 1;
+		int positionDebut = 0;
 
-	while (chaine[positionDebut] == ' ' || chaine[positionDebut] == LF) positionDebut++;
-	while (chaine[positionFin] == ' ' || chaine[positionFin] == LF) positionFin--;
+		while (chaine[positionDebut] == ' ' || chaine[positionDebut] == LF) positionDebut++;
+		while (chaine[positionFin] == ' ' || chaine[positionFin] == LF) positionFin--;
 
-	return chaine.substr(positionDebut, positionFin - positionDebut + 1);
+		return chaine.substr(positionDebut, positionFin - positionDebut + 1);
+	}
+	/*****************************TEMP FIX******************************/
+	else
+	{
+		return "";
+	}
+	/*****************************TEMP FIX******************************/
 }
 
 
