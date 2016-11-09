@@ -1,6 +1,10 @@
 #include "Client.h"
 vector<Client*> Client::vecClients;
 
+Client::Client()
+{
+}
+
 Client::Client(int NumClient, string CodePostal)
 {
 	vecClients.push_back(this);

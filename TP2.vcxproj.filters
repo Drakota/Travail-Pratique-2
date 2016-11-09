@@ -66,4 +66,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Clients.txt" />
+    <Text Include="Op1.txt" />
+  </ItemGroup>
 </Project>

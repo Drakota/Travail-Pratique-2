@@ -17,7 +17,7 @@
 
 void DemanderFichier(bool i, SourceLecture& fichier);
 void LireFichierClients(SourceLecture& fichier);
-void LireFichierOpérations(ifstream& Fichier, Quincaillerie& Magasin);
+void LireFichierOpérations(SourceLecture& Fichier, Quincaillerie& Magasin);
 void CreerClient(vector<string> VectorElems);
 void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin);
 
@@ -37,6 +37,8 @@ void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
 	}
 	else if (VectorElems[0] == AJOUTERCLIENT)
 	{
+		
+		Magasin.GetCaissePlusRapide().AjouterClientFile()
 	}
 	else if (VectorElems[0] == QUITTERCAISSE)
 	{
@@ -77,8 +79,19 @@ void LireFichierClients(SourceLecture& fichier)
 	catch (const out_of_range& e) { cout << "Impossible de créer un client" << endl; }
 }
 
-void LireFichierOpérations(ifstream & Fichier, Quincaillerie& Magasin)
+void LireFichierOpérations(SourceLecture& fichier, Quincaillerie& magasin)
 {
+	try
+	{
+		do
+		{
+			vector<string> VecElems;
+			fichier.Lire(VecElems);
+			ExecuterOpérations(VecElems, magasin);
+		} while (fichier.EstCapableDeLire());
+	}
+	/**************************LOOP A LINFINI************************/
+	catch (const out_of_range& e) { cout << "Impossible de créer un client" << endl; }
 }
 
 int main()
@@ -89,6 +102,8 @@ int main()
 
 	DemanderFichier(CLIENT, Fichier);
 	LireFichierClients(Fichier);
+	DemanderFichier(OPÉRATIONS, Fichier);
+	LireFichierOpérations(Fichier, Magasin);
 
 
 	/*ifstream FichierOpérations = DemanderFichierOpérations();
