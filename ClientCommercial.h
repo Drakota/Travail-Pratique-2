@@ -9,6 +9,7 @@ class ClientCommercial :
 	string prenomClient;
 	int pourcentageRabais;
 public:
+
 	ClientCommercial(int NumClient, string CodePostale, string Courriel, string Nom, string Prenom, int Rabais);
 	virtual void Afficher(ostream& flux);
 };

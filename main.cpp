@@ -38,7 +38,6 @@ void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
 	else if (VectorElems[0] == AJOUTERCLIENT)
 	{
 		
-		Magasin.GetCaissePlusRapide().AjouterClientFile()
 	}
 	else if (VectorElems[0] == QUITTERCAISSE)
 	{
@@ -102,8 +101,8 @@ int main()
 
 	DemanderFichier(CLIENT, Fichier);
 	LireFichierClients(Fichier);
-	DemanderFichier(OPÉRATIONS, Fichier);
-	LireFichierOpérations(Fichier, Magasin);
+	/*DemanderFichier(OPÉRATIONS, Fichier);
+	LireFichierOpérations(Fichier, Magasin);*/
 
 
 	/*ifstream FichierOpérations = DemanderFichierOpérations();
