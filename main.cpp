@@ -16,8 +16,14 @@
 
 
 void DemanderFichier(bool i, SourceLecture& fichier);
+<<<<<<< HEAD
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& Magasin, vector<Client*>& vecClient);
 void CreerClient(vector<string> VectorElems, vector<Client*>& vecClient);
+=======
+void LireFichierClients(SourceLecture& fichier);
+void LireFichierOpérations(SourceLecture& Fichier, Quincaillerie& Magasin);
+void CreerClient(vector<string> VectorElems);
+>>>>>>> origin/master
 void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin);
 
 
@@ -36,7 +42,12 @@ void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
 	}
 	else if (VectorElems[0] == AJOUTERCLIENT)
 	{
+<<<<<<< HEAD
 		cout << "AJOUTER" << endl;
+=======
+		
+		Magasin.GetCaissePlusRapide().AjouterClientFile()
+>>>>>>> origin/master
 	}
 	else if (VectorElems[0] == QUITTERCAISSE)
 	{
@@ -79,6 +90,24 @@ void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<
 	catch (const out_of_range& e) { cout << "Impossible de créer un client" << endl; }
 }
 
+<<<<<<< HEAD
+=======
+void LireFichierOpérations(SourceLecture& fichier, Quincaillerie& magasin)
+{
+	try
+	{
+		do
+		{
+			vector<string> VecElems;
+			fichier.Lire(VecElems);
+			ExecuterOpérations(VecElems, magasin);
+		} while (fichier.EstCapableDeLire());
+	}
+	/**************************LOOP A LINFINI************************/
+	catch (const out_of_range& e) { cout << "Impossible de créer un client" << endl; }
+}
+
+>>>>>>> origin/master
 int main()
 {
 	locale::global(locale("")); //Permet les charactères français
@@ -87,8 +116,15 @@ int main()
 	SourceLecture FichierOpérations;
 	Quincaillerie magasin(NBCAISSES);
 
+<<<<<<< HEAD
 	DemanderFichier(CLIENT, FichierClients);
 	LireFichier(CLIENT, FichierClients, magasin, vecClients);
+=======
+	DemanderFichier(CLIENT, Fichier);
+	LireFichierClients(Fichier);
+	DemanderFichier(OPÉRATIONS, Fichier);
+	LireFichierOpérations(Fichier, Magasin);
+>>>>>>> origin/master
 
 	DemanderFichier(OPÉRATIONS, FichierOpérations);
 	LireFichier(OPÉRATIONS, FichierOpérations, magasin, vecClients);

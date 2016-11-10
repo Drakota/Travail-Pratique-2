@@ -161,6 +161,10 @@
     <ClInclude Include="Quincaillerie.h" />
     <ClInclude Include="SourceLecture.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Clients.txt" />
+    <Text Include="Op1.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
