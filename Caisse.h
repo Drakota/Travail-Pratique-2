@@ -2,6 +2,7 @@
 #include "Client.h"
 #include <deque>
 #include "Constantes.h"
+#include <iostream>
 
 class Caisse
 {
@@ -20,8 +21,12 @@ public:
 
 	// Methodes
 	int ConvertirMinute(string Min);
-	void OuvrirCaisse() { status = OUVERT; }
-	void FermerCaisser() { status = FERMÉ; }
+	void OuvrirCaisse() { status = OUVERT;
+	cout << "Ouvrir" << endl;
+	}
+	void FermerCaisse() { status = FERMÉ; 
+	cout << "Fermeture" << endl;
+	}
 	void AjouterTempsFile(int t) { tempsFile += t; }
 	void AjouterClientFile(string typeClient);
 };

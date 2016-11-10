@@ -13,7 +13,7 @@ int Caisse::ConvertirMinute(string Min)
 
 void Caisse::AjouterClientFile(string typeClient)
 {
-	if()
+	/*Permet d'ajouter des clients dans une file d'une caisse*/
 }
 
 
