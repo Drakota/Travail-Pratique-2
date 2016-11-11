@@ -38,18 +38,6 @@ void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
 	}
 	else if (VectorElems.at(0) == QUITTERCAISSE)
 	{
-<<<<<<< HEAD
-		
-	}
-	else if (VectorElems[0] == QUITTERCAISSE)
-	{
-	}
-	else if (VectorElems[0] == FERMERCAISSE)
-	{
-		Magasin.GetCaisses().at(stoi(VectorElems[1]) - 1).FermerCaisser();
-=======
-		cout << "QUITTER" << endl;
->>>>>>> origin/master
 	}
 	else if (VectorElems.at(0) == FERMERCAISSE) Magasin.SetCaisse((stoi(VectorElems.at(1)) - 1)).FermerCaisse();
 	else cout << "Type d'opération inconnu..." << endl;
@@ -92,15 +80,8 @@ int main()
 	SourceLecture FichierOpérations;
 	Quincaillerie magasin(NBCAISSES);
 
-<<<<<<< HEAD
-	DemanderFichier(CLIENT, Fichier);
-	LireFichierClients(Fichier);
-	/*DemanderFichier(OPÉRATIONS, Fichier);
-	LireFichierOpérations(Fichier, Magasin);*/
-=======
 	DemanderFichier(CLIENT, FichierClients);
 	LireFichier(CLIENT, FichierClients, magasin, vecClients);
->>>>>>> origin/master
 
 	DemanderFichier(OPÉRATIONS, FichierOpérations);
 	LireFichier(OPÉRATIONS, FichierOpérations, magasin, vecClients);
