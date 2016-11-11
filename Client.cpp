@@ -1,17 +1,17 @@
 #include "Client.h"
-vector<Client*> Client::vecClients;
 
+<<<<<<< HEAD
 Client::Client(int NumClient, string CodePostal)
+=======
+Client::Client()
 {
-	vecClients.push_back(this);
+}
+
+Client::Client(int NumClient, string CodePostal, string type)
+>>>>>>> origin/master
+{
 	numClient = NumClient;
 	codePostal = CodePostal;
+	clientype_ = type;
 }
 
-void Client::Test()
-{
-	for (int i = 0; i < vecClients.size(); i++)
-	{
-		vecClients[i]->Afficher(cout);
-	}
-}

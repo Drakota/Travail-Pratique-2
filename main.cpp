@@ -16,27 +16,29 @@
 
 
 void DemanderFichier(bool i, SourceLecture& fichier);
-void LireFichierClients(SourceLecture& fichier);
-void LireFichierOpérations(SourceLecture& Fichier, Quincaillerie& Magasin);
-void CreerClient(vector<string> VectorElems);
+void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& Magasin, vector<Client*>& vecClient);
+void CreerClient(vector<string> VectorElems, vector<Client*>& vecClient);
 void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin);
 
 
-void CreerClient(vector<string> VectorElems)
+void CreerClient(vector<string> VectorElems, vector<Client*>& vecClient)
 {
-	if (VectorElems.at(1) == TYPEPARTICULIER) new ClientParticulier(stoi(VectorElems.at(0)), VectorElems.at(2));
-	else if (VectorElems.at(1) == TYPEPRIVILEGIE) new ClientPrivilégié(stoi(VectorElems.at(0)), VectorElems.at(2), VectorElems.at(3));
-	else if (VectorElems.at(1) == TYPECOMMERCIAL) new ClientCommercial(stoi(VectorElems.at(0)), VectorElems.at(2), VectorElems.at(3), VectorElems.at(4), VectorElems.at(5), stoi(VectorElems.at(6)));
+	if (VectorElems.at(1) == TYPEPARTICULIER) vecClient.push_back(new ClientParticulier(stoi(VectorElems.at(0)), VectorElems.at(1), VectorElems.at(2)));
+	else if (VectorElems.at(1) == TYPEPRIVILEGIE) vecClient.push_back(new ClientPrivilégié(stoi(VectorElems.at(0)), VectorElems.at(1), VectorElems.at(2), VectorElems.at(3)));
+	else if (VectorElems.at(1) == TYPECOMMERCIAL) vecClient.push_back(new ClientCommercial(stoi(VectorElems.at(0)), VectorElems.at(1), VectorElems.at(2), VectorElems.at(3), VectorElems.at(4), VectorElems.at(5), stoi(VectorElems.at(6))));
 }
 
 void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
 {
-	if (VectorElems[0] == OUVRIRCAISSE)
+	if (VectorElems.at(0) == OUVRIRCAISSE) Magasin.SetCaisse((stoi(VectorElems.at(1)) - 1)).OuvrirCaisse();
+	else if (VectorElems.at(0) == AJOUTERCLIENT)
 	{
-		Magasin.GetCaisses().at(stoi(VectorElems[1]) - 1).OuvrirCaisse();
+		cout << "AJOUTER" << endl;
+		/*Magasin.GetCaissePlusRapide().AjouterClientFile();*/
 	}
-	else if (VectorElems[0] == AJOUTERCLIENT)
+	else if (VectorElems.at(0) == QUITTERCAISSE)
 	{
+<<<<<<< HEAD
 		
 	}
 	else if (VectorElems[0] == QUITTERCAISSE)
@@ -45,7 +47,11 @@ void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
 	else if (VectorElems[0] == FERMERCAISSE)
 	{
 		Magasin.GetCaisses().at(stoi(VectorElems[1]) - 1).FermerCaisser();
+=======
+		cout << "QUITTER" << endl;
+>>>>>>> origin/master
 	}
+	else if (VectorElems.at(0) == FERMERCAISSE) Magasin.SetCaisse((stoi(VectorElems.at(1)) - 1)).FermerCaisse();
 	else cout << "Type d'opération inconnu..." << endl;
 }
 
@@ -63,49 +69,50 @@ void DemanderFichier(bool i, SourceLecture& fichier)
 	} while (!fichier.EstCapableDeLire());
 }
 
-void LireFichierClients(SourceLecture& fichier)
+void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient)
 {
 	try
 	{
 		do
 		{
-			vector<string> VecElems;
-			fichier.Lire(VecElems);
-			CreerClient(VecElems);
-		} while (fichier.EstCapableDeLire());
+			vector<string> vecElems;
+			fichier.Lire(vecElems);
+			if (i == CLIENT) CreerClient(vecElems, vecClient);
+			else if (i == OPÉRATIONS) ExecuterOpérations(vecElems, magasin);
+		} while (fichier.PeutEncoreLire());
 	}
-	/**************************LOOP A LINFINI************************/
-	catch (const out_of_range& e) { cout << "Impossible de créer un client" << endl; }
-}
-
-void LireFichierOpérations(SourceLecture& fichier, Quincaillerie& magasin)
-{
-	try
-	{
-		do
-		{
-			vector<string> VecElems;
-			fichier.Lire(VecElems);
-			ExecuterOpérations(VecElems, magasin);
-		} while (fichier.EstCapableDeLire());
-	}
-	/**************************LOOP A LINFINI************************/
-	catch (const out_of_range& e) { cout << "Impossible de créer un client" << endl; }
+	catch (const out_of_range& e) { cout << "Impossible de faire l'action" << endl; }
 }
 
 int main()
 {
 	locale::global(locale("")); //Permet les charactères français
-	SourceLecture Fichier;
-	Quincaillerie Magasin(NBCAISSES);
+	vector<Client*> vecClients;
+	SourceLecture FichierClients;
+	SourceLecture FichierOpérations;
+	Quincaillerie magasin(NBCAISSES);
 
+<<<<<<< HEAD
 	DemanderFichier(CLIENT, Fichier);
 	LireFichierClients(Fichier);
 	/*DemanderFichier(OPÉRATIONS, Fichier);
 	LireFichierOpérations(Fichier, Magasin);*/
+=======
+	DemanderFichier(CLIENT, FichierClients);
+	LireFichier(CLIENT, FichierClients, magasin, vecClients);
+>>>>>>> origin/master
 
+	DemanderFichier(OPÉRATIONS, FichierOpérations);
+	LireFichier(OPÉRATIONS, FichierOpérations, magasin, vecClients);
 
-	/*ifstream FichierOpérations = DemanderFichierOpérations();
-	LireFichierOpérations(FichierOpérations);*/
-	Client::Test();
+	/*TEST*/
+	for (int i = 0; i < vecClients.size(); i++)
+	{
+		vecClients.at(i)->Afficher(cout);
+	}
+	cout << endl << endl;
+	for (int i = 0; i < magasin.GetCaisses().size(); i++)
+	{
+		cout << magasin.GetCaisses().at(i).GetStatus() << endl;
+	}
 }

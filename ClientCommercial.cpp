@@ -1,6 +1,6 @@
 #include "ClientCommercial.h"
 
-ClientCommercial::ClientCommercial(int NumClient, string CodePostale, string Courriel, string Nom, string Prenom, int Rabais) : Client(NumClient, CodePostale)
+ClientCommercial::ClientCommercial(int NumClient, string type, string CodePostale, string Courriel, string Nom, string Prenom, int Rabais) : Client(NumClient, CodePostale, type)
 {
 	courriel = Courriel;
 	nomClient = Nom;
@@ -14,6 +14,7 @@ void ClientCommercial::Afficher(ostream & flux)
 	flux << "Client Commercial" << endl;
 	flux << "-----------------" << endl;
 	flux << numClient << endl;
+	flux << clientype_ << endl;
 	flux << codePostal << endl;
 	flux << courriel << endl;
 	flux << nomClient << endl;

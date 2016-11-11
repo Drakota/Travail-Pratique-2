@@ -6,6 +6,6 @@ class ClientPrivilégié :
 {
 	string courriel;
 public:
-	ClientPrivilégié(int NumClient, string CodePostale, string Email);
+	ClientPrivilégié(int NumClient, string type, string CodePostale, string Email);
 	virtual void Afficher(ostream& flux);
 };
