@@ -36,6 +36,9 @@
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SourceLecture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constantes.h">
@@ -59,5 +62,12 @@
     <ClInclude Include="Caisse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SourceLecture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Clients.txt" />
+    <Text Include="Op1.txt" />
   </ItemGroup>
 </Project>

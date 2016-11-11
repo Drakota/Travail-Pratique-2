@@ -149,6 +149,7 @@
     <ClCompile Include="ClientPrivilégié.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Quincaillerie.cpp" />
+    <ClCompile Include="SourceLecture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Caisse.h" />
@@ -158,6 +159,11 @@
     <ClInclude Include="ClientPrivilégié.h" />
     <ClInclude Include="Constantes.h" />
     <ClInclude Include="Quincaillerie.h" />
+    <ClInclude Include="SourceLecture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Clients.txt" />
+    <Text Include="Op1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
