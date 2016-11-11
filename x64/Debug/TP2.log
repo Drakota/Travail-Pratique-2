@@ -1,2 +1,13 @@
-﻿  Caisse.cpp
-  TP2.vcxproj -> D:\École\3-Session\Struct. Donné\Travail-Pratique-2\x64\Debug\TP2.exe
+﻿  SourceLecture.cpp
+d:\école\session 3\struct. données\travail-pratique-2\sourcelecture.cpp(50): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  Quincaillerie.cpp
+  main.cpp
+d:\école\session 3\struct. données\travail-pratique-2\main.cpp(80): warning C4101: 'e' : variable locale non référencée
+  ClientPrivilégié.cpp
+  ClientParticulier.cpp
+  ClientCommercial.cpp
+  Client.cpp
+  Caisse.cpp
+  Génération de code en cours...
+  TP2.vcxproj -> D:\École\Session 3\Struct. Données\Travail-Pratique-2\x64\Debug\TP2.exe
+  TP2.vcxproj -> D:\École\Session 3\Struct. Données\Travail-Pratique-2\x64\Debug\TP2.pdb (Full PDB)

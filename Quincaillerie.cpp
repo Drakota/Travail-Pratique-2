@@ -8,7 +8,7 @@ Quincaillerie::Quincaillerie(int NBCaisse) : vCaisses(NBCaisse)
 
 Caisse Quincaillerie::GetCaissePlusRapide(bool commercial)
 {
-	vector<Caisse> copie = GetCaisse();
+	vector<Caisse> copie = GetVectorCaisse();
 	vector<Caisse>::iterator indice;
 
 	if (commercial == true) indice = copie.begin();
