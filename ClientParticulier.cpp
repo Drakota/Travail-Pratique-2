@@ -10,6 +10,6 @@ void ClientParticulier::Afficher(ostream & flux)
 	flux << "Client Particulier" << endl;
 	flux << "-------------------" << endl;
 	flux << numClient << endl;
-	flux << clientype_ << endl;
+	flux << clienType << endl;
 	flux << codePostal << endl;
 }

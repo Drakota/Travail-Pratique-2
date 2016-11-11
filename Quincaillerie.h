@@ -9,6 +9,6 @@ public:
 	Quincaillerie(int NBCaisse);
     vector<Caisse> GetCaisses() const { return vCaisses; }
 	Caisse & SetCaisse(int index)  { return vCaisses.at(index); }
-	Caisse GetCaissePlusRapide();
+	Caisse GetCaissePlusRapide(bool commercial);
 };
 

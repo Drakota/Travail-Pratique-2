@@ -14,7 +14,7 @@ void ClientCommercial::Afficher(ostream & flux)
 	flux << "Client Commercial" << endl;
 	flux << "-----------------" << endl;
 	flux << numClient << endl;
-	flux << clientype_ << endl;
+	flux << clienType << endl;
 	flux << codePostal << endl;
 	flux << courriel << endl;
 	flux << nomClient << endl;
