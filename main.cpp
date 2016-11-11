@@ -18,7 +18,7 @@
 void DemanderFichier(bool i, SourceLecture& fichier);
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& Magasin, vector<Client*>& vecClient);
 void CreerClient(vector<string> VectorElems, vector<Client*>& vecClient);
-void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin);
+void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin, vector<Client*> vecClient);
 
 
 void CreerClient(vector<string> VectorElems, vector<Client*>& vecClient)
@@ -28,18 +28,21 @@ void CreerClient(vector<string> VectorElems, vector<Client*>& vecClient)
 	else if (VectorElems.at(1) == TYPECOMMERCIAL) vecClient.push_back(new ClientCommercial(stoi(VectorElems.at(0)), VectorElems.at(1), VectorElems.at(2), VectorElems.at(3), VectorElems.at(4), VectorElems.at(5), stoi(VectorElems.at(6))));
 }
 
-void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin)
+void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vector<Client*> vecClient)
 {
-	if (VectorElems.at(0) == OUVRIRCAISSE) Magasin.SetCaisse((stoi(VectorElems.at(1)) - 1)).OuvrirCaisse();
-	else if (VectorElems.at(0) == AJOUTERCLIENT)
+	if (vectorElems.at(0) == OUVRIRCAISSE) Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
+	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
 		cout << "AJOUTER" << endl;
-		/*Magasin.GetCaissePlusRapide().AjouterClientFile();*/
+		if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient == TYPECOMMERCIAL)
+		{
+			Magasin.GetCaissePlusRapide(vrai).AjouterClientFile();
+		}
 	}
-	else if (VectorElems.at(0) == QUITTERCAISSE)
+	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
 	}
-	else if (VectorElems.at(0) == FERMERCAISSE) Magasin.SetCaisse((stoi(VectorElems.at(1)) - 1)).FermerCaisse();
+	else if (vectorElems.at(0) == FERMERCAISSE) Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
 	else cout << "Type d'opération inconnu..." << endl;
 }
 
@@ -66,7 +69,7 @@ void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<
 			vector<string> vecElems;
 			fichier.Lire(vecElems);
 			if (i == CLIENT) CreerClient(vecElems, vecClient);
-			else if (i == OPÉRATIONS) ExecuterOpérations(vecElems, magasin);
+			else if (i == OPÉRATIONS) ExecuterOpérations(vecElems, magasin, vecClient);
 		} while (fichier.PeutEncoreLire());
 	}
 	catch (const out_of_range& e) { cout << "Impossible de faire l'action" << endl; }

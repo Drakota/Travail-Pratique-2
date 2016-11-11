@@ -11,7 +11,7 @@ void ClientPrivilégié::Afficher(ostream & flux)
 	flux << "Client Privilégié" << endl;
 	flux << "------------------" << endl;
 	flux << numClient << endl;
-	flux << clientype_ << endl;
+	flux << clienType << endl;
 	flux << codePostal << endl;
 	flux << courriel << endl;
 }
