@@ -34,10 +34,10 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
 		cout << "AJOUTER" << endl;
-		if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
-			Magasin.GetCaissePlusRapide(true).AjouterClientFile();
-		else
-			Magasin.GetCaissePlusRapide(false).AjouterClientFile();
+		//if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
+		//	/*Magasin.GetCaissePlusRapide(true).AjouterClientFile();*/
+		//else
+		//	/*Magasin.GetCaissePlusRapide(false).AjouterClientFile();*/
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
