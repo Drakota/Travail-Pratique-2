@@ -7,8 +7,6 @@ enum Status { OUVERT, FERMÉ };
 enum DemanderFichier { CLIENT, OPÉRATIONS };
 
 // Constantes générales
-const char delim = ';';
-const char endline = '\n';
 const int NBCAISSES = 6;
 
 // Constantes pour les types de clients
