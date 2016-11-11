@@ -15,10 +15,15 @@
 #include <vector>
 
 
-void DemanderFichier(bool i, SourceLecture& fichier);
+void DemanderFichier(bool i, SourceLecture& flecture, ofstream& fecriture);
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient);
 void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient);
 void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient);
+
+void ÉcrireRapport()
+{
+	
+}
 
 
 void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient)
@@ -34,17 +39,10 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
 		cout << "AJOUTER" << endl;
-<<<<<<< HEAD
-		if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
+		/*if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
 			Magasin.GetCaissePlusRapide(true).AjouterClientFile(vecClient.at(stoi(vectorElems.at(1))), Magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)), stof(vectorElems.at(3)));
 		else
-			Magasin.GetCaissePlusRapide(false).AjouterClientFile();
-=======
-		//if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
-		//	/*Magasin.GetCaissePlusRapide(true).AjouterClientFile();*/
-		//else
-		//	/*Magasin.GetCaissePlusRapide(false).AjouterClientFile();*/
->>>>>>> refs/remotes/origin/JO
+			Magasin.GetCaissePlusRapide(false).AjouterClientFile();*/
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
@@ -53,7 +51,7 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 	else cout << "Type d'opération inconnu..." << endl;
 }
 
-void DemanderFichier(bool i, SourceLecture& fichier)
+void DemanderFichier(bool i, SourceLecture& fichier, ofstream& fecriture)
 {
 	string nomFichier; // Variable qui retient le nom du fichier
 	do
@@ -65,6 +63,7 @@ void DemanderFichier(bool i, SourceLecture& fichier)
 		cin >> nomFichier;
 		fichier.SetNomSourceLecture(nomFichier);
 	} while (!fichier.EstCapableDeLire());
+	if (i == OPÉRATIONS) fecriture.open("Journal_" + nomFichier);
 }
 
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient)
@@ -89,11 +88,12 @@ int main()
 	SourceLecture FichierClients;
 	SourceLecture FichierOpérations;
 	Quincaillerie magasin(NBCAISSES);
+	ofstream FichierEcriture;
 
-	DemanderFichier(CLIENT, FichierClients);
+	DemanderFichier(CLIENT, FichierClients, FichierEcriture);
 	LireFichier(CLIENT, FichierClients, magasin, vecClients);
 
-	DemanderFichier(OPÉRATIONS, FichierOpérations);
+	DemanderFichier(OPÉRATIONS, FichierOpérations, FichierEcriture);
 	LireFichier(OPÉRATIONS, FichierOpérations, magasin, vecClients);
 
 	/*TEST*/
