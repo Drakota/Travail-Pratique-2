@@ -27,5 +27,6 @@ public:
 	cout << "Fermeture" << endl;
 	}
 	void AjouterTempsFile(int t) { tempsFile += t; }
-	void AjouterClientFile(Client* client, int tempsClient, float montantAchatClient);
+	void AjouterClientFile(Client* client, float montantAchatClient);
+	void RetirerClientFile();
 };
