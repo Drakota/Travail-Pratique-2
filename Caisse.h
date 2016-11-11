@@ -20,7 +20,6 @@ public:
 	int GetTempsFile() const { return tempsFile; }
 
 	// Methodes
-	int ConvertirMinute(string Min);
 	void OuvrirCaisse() { status = OUVERT;
 	cout << "Ouvrir" << endl;
 	}
@@ -28,5 +27,5 @@ public:
 	cout << "Fermeture" << endl;
 	}
 	void AjouterTempsFile(int t) { tempsFile += t; }
-	void AjouterClientFile(string typeClient);
+	void AjouterClientFile(Client* client, int tempsClient, float montantAchatClient);
 };
