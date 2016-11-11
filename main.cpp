@@ -33,21 +33,19 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 	if (vectorElems.at(0) == OUVRIRCAISSE) Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
 	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
-		cout << "AJOUTER" << endl;
-<<<<<<< HEAD
+		// Ajoute le temps d'attente dans le client
+		vecClient.at(stoi(vectorElems.at(1)))->SetTempsClient(Magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
+		// Modifie la caisse (ajoute un client / ajoute le temps d'attente / **faire quelque chose avec le montant**)
 		if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
-			Magasin.GetCaissePlusRapide(true).AjouterClientFile(vecClient.at(stoi(vectorElems.at(1))), Magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)), stof(vectorElems.at(3)));
+			Magasin.GetCaissePlusRapide(true).AjouterClientFile(vecClient.at(stoi(vectorElems.at(1))), stof(vectorElems.at(3)));
 		else
-			Magasin.GetCaissePlusRapide(false).AjouterClientFile();
-=======
-		//if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
-		//	/*Magasin.GetCaissePlusRapide(true).AjouterClientFile();*/
-		//else
-		//	/*Magasin.GetCaissePlusRapide(false).AjouterClientFile();*/
->>>>>>> refs/remotes/origin/JO
+			Magasin.GetCaissePlusRapide(false).AjouterClientFile(vecClient.at(stoi(vectorElems.at(1))), stof(vectorElems.at(3)));
+
+		cout << "AJOUTER" << endl;
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
+		Magasin.GetCaisses(stoi(vectorElems.at(1))).RetirerClientFile();
 	}
 	else if (vectorElems.at(0) == FERMERCAISSE) Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
 	else cout << "Type d'opération inconnu..." << endl;
@@ -84,7 +82,7 @@ void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<
 
 int main()
 {
-	locale::global(locale("")); //Permet les charactères français
+	locale::global(locale("")); // Permet les charactères français
 	vector<Client*> vecClients;
 	SourceLecture FichierClients;
 	SourceLecture FichierOpérations;
