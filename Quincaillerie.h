@@ -11,7 +11,7 @@ public:
 	Caisse & SetCaisse(int index) { return vCaisses.at(index); }
 
 	vector<Caisse> GetVectorCaisse() const { return vCaisses; }
-    Caisse GetCaisse(int index) const { return vCaisses.at(index); }
+    Caisse & GetCaisse(int index) { return vCaisses.at(index); }
 	Caisse GetCaissePlusRapide(bool commercial);
 
 	int ConvertirMinuteEnSeconde(string Min);
