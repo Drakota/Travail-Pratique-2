@@ -45,7 +45,7 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
-		Magasin.GetCaisses(stoi(vectorElems.at(1))).RetirerClientFile();
+		Magasin.GetCaisse(stoi(vectorElems.at(1))).RetirerClientFile();
 	}
 	else if (vectorElems.at(0) == FERMERCAISSE) Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
 	else cout << "Type d'opération inconnu..." << endl;
@@ -100,8 +100,8 @@ int main()
 		vecClients.at(i)->Afficher(cout);
 	}
 	cout << endl << endl;
-	for (int i = 0; i < magasin.GetCaisses().size(); i++)
+	for (int i = 0; i < magasin.GetVectorCaisse().size(); i++)
 	{
-		cout << magasin.GetCaisses().at(i).GetStatus() << endl;
+		cout << magasin.GetVectorCaisse().at(i).GetStatus() << endl;
 	}
 }

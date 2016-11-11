@@ -7,7 +7,8 @@ class Quincaillerie
 public:
 	Caisse Test;
 	Quincaillerie(int NBCaisse);
-    Caisse GetCaisses(int index) const { return vCaisses.at(index); }
+	vector<Caisse> GetVectorCaisse() { return vCaisses; }
+    Caisse GetCaisse(int index) const { return vCaisses.at(index); }
 	Caisse & SetCaisse(int index)  { return vCaisses.at(index); }
 	Caisse GetCaissePlusRapide(bool commercial);
 
