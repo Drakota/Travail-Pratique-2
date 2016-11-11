@@ -5,15 +5,10 @@ Caisse::Caisse() : tempsFile(0), status(FERMÉ)
 {
 }
 
-int Caisse::ConvertirMinute(string Min)
+void Caisse::AjouterClientFile(Client* client, int tempsClient, float montantAchatClient)
 {
-	int NBSecondes = stoi(Min.substr(0, Min.find(":"))) * 60 + stoi(Min.substr(Min.find(":") + 1, Min.size()));
-	return NBSecondes;
-}
-
-void Caisse::AjouterClientFile(string typeClient)
-{
-	/*Permet d'ajouter des clients dans une file d'une caisse*/
+	file.push_back(client);
+	tempsFile += tempsClient;
 }
 
 

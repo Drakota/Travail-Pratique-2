@@ -35,7 +35,7 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 	{
 		cout << "AJOUTER" << endl;
 		if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
-			Magasin.GetCaissePlusRapide(true).AjouterClientFile();
+			Magasin.GetCaissePlusRapide(true).AjouterClientFile(vecClient.at(stoi(vectorElems.at(1))), Magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)), stof(vectorElems.at(3)));
 		else
 			Magasin.GetCaissePlusRapide(false).AjouterClientFile();
 	}
