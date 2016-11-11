@@ -2,7 +2,6 @@
 // Jonathan Bouchard & Pierre-Anthony Houle
 // 04 novembre 2016
 // Créer une file de clients
-// Test
 
 #include "Constantes.h"
 #include "Quincaillerie.h"
@@ -17,16 +16,16 @@
 
 
 void DemanderFichier(bool i, SourceLecture& fichier);
-void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& Magasin, vector<Client*>& vecClient);
-void CreerClient(vector<string> VectorElems, vector<Client*>& vecClient);
-void ExecuterOpérations(vector<string> VectorElems, Quincaillerie& Magasin, vector<Client*> vecClient);
+void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient);
+void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient);
+void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient);
 
 
-void CreerClient(vector<string> VectorElems, vector<Client*>& vecClient)
+void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient)
 {
-	if (VectorElems.at(1) == TYPEPARTICULIER) vecClient.push_back(new ClientParticulier(stoi(VectorElems.at(0)), VectorElems.at(1), VectorElems.at(2)));
-	else if (VectorElems.at(1) == TYPEPRIVILEGIE) vecClient.push_back(new ClientPrivilégié(stoi(VectorElems.at(0)), VectorElems.at(1), VectorElems.at(2), VectorElems.at(3)));
-	else if (VectorElems.at(1) == TYPECOMMERCIAL) vecClient.push_back(new ClientCommercial(stoi(VectorElems.at(0)), VectorElems.at(1), VectorElems.at(2), VectorElems.at(3), VectorElems.at(4), VectorElems.at(5), stoi(VectorElems.at(6))));
+	if (vectorElems.at(1) == TYPEPARTICULIER) vecClient.push_back(new ClientParticulier(stoi(vectorElems.at(0)), vectorElems.at(1), vectorElems.at(2)));
+	else if (vectorElems.at(1) == TYPEPRIVILEGIE) vecClient.push_back(new ClientPrivilégié(stoi(vectorElems.at(0)), vectorElems.at(1), vectorElems.at(2), vectorElems.at(3)));
+	else if (vectorElems.at(1) == TYPECOMMERCIAL) vecClient.push_back(new ClientCommercial(stoi(vectorElems.at(0)), vectorElems.at(1), vectorElems.at(2), vectorElems.at(3), vectorElems.at(4), vectorElems.at(5), stoi(vectorElems.at(6))));
 }
 
 void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vector<Client*> vecClient)
@@ -35,10 +34,10 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
 		cout << "AJOUTER" << endl;
-		if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient == TYPECOMMERCIAL)
-		{
-			Magasin.GetCaissePlusRapide(vrai).AjouterClientFile();
-		}
+		if (vecClient.at(stoi(vectorElems.at(1)))->GetTypeClient() == TYPECOMMERCIAL)
+			Magasin.GetCaissePlusRapide(true).AjouterClientFile();
+		else
+			Magasin.GetCaissePlusRapide(false).AjouterClientFile();
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
