@@ -13,7 +13,12 @@ Caisse & Quincaillerie::GetCaissePlusRapide(bool commercial)
 	if (commercial == true) indice = GetVectorCaisse().begin();
 	else indice = GetVectorCaisse().begin() + 1;
 
-    auto iterCaisse = min_element(indice, GetVectorCaisse().end(), [](const Caisse& a, const Caisse& b) { return a.GetTempsFile() < b.GetTempsFile(); });
+    auto iterCaisse = min_element(indice, GetVectorCaisse().end(), [](const Caisse& a, const Caisse& b) 
+	{ 
+		if (a.GetStatus() == OUVERT && b.GetStatus() == OUVERT)
+			return a.GetTempsFile() < b.GetTempsFile();
+
+	});
 	return *iterCaisse;
 }
 

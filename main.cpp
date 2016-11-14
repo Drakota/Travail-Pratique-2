@@ -48,9 +48,7 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
-		/*DOES NOT WORK*/
-		/*Magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).RetirerClientFile();*/
-		/*DOES NOT WORK*/
+		Magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).RetirerClientFile();
 	}
 	else if (vectorElems.at(0) == FERMERCAISSE) Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
 	else cout << "Type d'opération inconnu..." << endl;
