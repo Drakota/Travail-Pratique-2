@@ -12,7 +12,8 @@ public:
 
 	vector<Caisse> & GetVectorCaisse() { return vCaisses; }
     Caisse & GetCaisse(int index) { return vCaisses.at(index); }
-	void GetCaissePlusRapide(bool commercial, Caisse& cRapide);
+
+	void GetCaissePlusRapide(bool commercial, vector<Caisse*>::iterator & cRapide);
 
 	int ConvertirMinuteEnSeconde(string Min);
 };
