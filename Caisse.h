@@ -20,12 +20,8 @@ public:
 	int GetTempsFile() const { return tempsFile; }
 
 	// Methodes
-	void OuvrirCaisse() { status = OUVERT;
-	cout << "Ouvrir" << endl;
-	}
-	void FermerCaisse() { status = FERMÉ; 
-	cout << "Fermeture" << endl;
-	}
+	void OuvrirCaisse() { status = OUVERT; }
+	void FermerCaisse() { status = FERMÉ; }
 	void AjouterTempsFile(int t) { tempsFile += t; }
 	void AjouterClientFile(Client* client, float montantAchatClient);
 	void RetirerClientFile();

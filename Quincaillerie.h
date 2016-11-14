@@ -10,9 +10,9 @@ public:
 
 	Caisse & SetCaisse(int index) { return vCaisses.at(index); }
 
-	vector<Caisse> GetVectorCaisse() const { return vCaisses; }
+	vector<Caisse> & GetVectorCaisse() { return vCaisses; }
     Caisse & GetCaisse(int index) { return vCaisses.at(index); }
-	Caisse GetCaissePlusRapide(bool commercial);
+	Caisse & GetCaissePlusRapide(bool commercial);
 
 	int ConvertirMinuteEnSeconde(string Min);
 };
