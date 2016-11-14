@@ -6,6 +6,7 @@ Quincaillerie::Quincaillerie(int NBCaisse) : vCaisses(NBCaisse)
 {
 }
 
+<<<<<<< HEAD
 
 void Quincaillerie::GetCaissePlusRapide(bool commercial, vector<Caisse*>::iterator & cRapide)
 {
@@ -15,6 +16,25 @@ void Quincaillerie::GetCaissePlusRapide(bool commercial, vector<Caisse*>::iterat
 	else indice = copie.begin() + 1;*/
 
 	cRapide = min_element(GetVectorCaisse().begin(), GetVectorCaisse().end(), [](const Caisse& a,  const Caisse& b) {return a.GetTempsFile() < b.GetTempsFile();});
+=======
+Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
+{
+	int indice;
+
+	// Si commercial on prend premiere caisse
+	// si non on prend la deuxieme
+	if (commercial == true) indice = 0;
+	else indice = 1;
+
+	Caisse* cRapide = &GetCaisse(indice);
+
+	for (int i = indice; i < GetVectorCaisse().size(); i++)
+	{
+		if (GetVectorCaisse().at(i).GetStatus() != FERMÉ && GetVectorCaisse().at(i).GetTempsFile() < cRapide->GetTempsFile())
+			cRapide = &GetVectorCaisse().at(i);
+	}
+	return cRapide;
+>>>>>>> refs/remotes/origin/P-A
 }
 
 int Quincaillerie::ConvertirMinuteEnSeconde(string Min)
