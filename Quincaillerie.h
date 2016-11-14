@@ -12,7 +12,7 @@ public:
 
 	vector<Caisse> & GetVectorCaisse() { return vCaisses; }
     Caisse & GetCaisse(int index) { return vCaisses.at(index); }
-	Caisse & GetCaissePlusRapide(bool commercial);
+	void GetCaissePlusRapide(bool commercial, Caisse& cRapide);
 
 	int ConvertirMinuteEnSeconde(string Min);
 };
