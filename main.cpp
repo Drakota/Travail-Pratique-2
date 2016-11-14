@@ -35,7 +35,7 @@ void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient)
 
 void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vector<Client*> vecClient)
 {
-	Caisse PlusRapide;
+	Caisse* PlusRapide;
 	if (vectorElems.at(0) == OUVRIRCAISSE) Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
 	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
@@ -43,13 +43,11 @@ void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vect
 		vecClient.at(stoi(vectorElems.at(1)) - 1)->SetTempsClient(Magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
 		//// Modifie la caisse (ajoute un client / ajoute le temps d'attente / **faire quelque chose avec le montant**)
 		if (vecClient.at(stoi(vectorElems.at(1)) - 1)->GetTypeClient() == TYPECOMMERCIAL)
-		{
-			Magasin.GetCaissePlusRapide(true, PlusRapide);
-			PlusRapide.AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
-		}
+			PlusRapide = Magasin.GetCaissePlusRapide(true);
 		else
-			Magasin.GetCaissePlusRapide(false, PlusRapide);
-			PlusRapide.AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
+			PlusRapide = Magasin.GetCaissePlusRapide(false);
+
+		PlusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
