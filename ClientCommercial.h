@@ -7,8 +7,9 @@ class ClientCommercial :
 	string courriel;
 	string nomClient;
 	string prenomClient;
-	int pourcentageRabais;
+	float pourcentageRabais;
 public:
-	ClientCommercial(int NumClient, string type, string CodePostale, string Courriel, string Nom, string Prenom, int Rabais);
+	ClientCommercial(int NumClient, string type, string CodePostale, string Courriel, string Nom, string Prenom, float Rabais);
 	virtual void Afficher(ostream& flux);
+	virtual float GetPourcentageRabais() { return pourcentageRabais; }
 };

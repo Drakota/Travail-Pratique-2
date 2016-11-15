@@ -1,10 +1,29 @@
 #include "Quincaillerie.h"
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 Quincaillerie::Quincaillerie(int NBCaisse) : vCaisses(NBCaisse)
 {
 }
+
+vector<Caisse>::iterator Quincaillerie::GetCaissePlusClients()
+{
+	return max_element(GetVectorCaisse().begin(), GetVectorCaisse().end(), [] (const Caisse& a, const Caisse& b) 
+	{return a.GetNbClientsNonServis() + a.GetNbClientsServis() < b.GetNbClientsNonServis() + b.GetNbClientsServis(); });
+}
+
+vector<Caisse>::iterator Quincaillerie::GetCaissePlusArgent()
+{
+	return max_element(GetVectorCaisse().begin(), GetVectorCaisse().end(), [](const Caisse& a, const Caisse& b)
+	{ return a.GetTotalAchats() < b.GetTotalAchats(); });
+}
+
+vector<Caisse>::iterator Quincaillerie::GetCaissePlusAttente()
+{
+	return max_element(GetVectorCaisse().begin(), GetVectorCaisse().end(), [](const Caisse& a, const Caisse& b)
+	{ return a.GetTempsFileTotal() < b.GetTempsFileTotal(); });
+}
+
 
 Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
 {
