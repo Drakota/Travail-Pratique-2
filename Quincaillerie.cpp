@@ -9,7 +9,7 @@ Quincaillerie::Quincaillerie(int NBCaisse) : vCaisses(NBCaisse)
 Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
 {
 	int indice;
-
+	bool caisseOuverte = false;
 	// Si commercial on prend premiere caisse
 	// si non on prend la deuxieme
 	if (commercial == true) indice = 0;
@@ -19,9 +19,15 @@ Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
 
 	for (int i = indice; i < GetVectorCaisse().size(); i++)
 	{
-		if (GetVectorCaisse().at(i).GetStatus() != FERMÉ && GetVectorCaisse().at(i).GetTempsFile() < cRapide->GetTempsFile())
-			cRapide = &GetVectorCaisse().at(i);
+		if (GetVectorCaisse().at(i).GetStatus() != FERMÉ)
+		{
+			caisseOuverte = true;
+			if (GetVectorCaisse().at(i).GetTempsFile() < cRapide->GetTempsFile())
+				cRapide = &GetVectorCaisse().at(i);
+		}
 	}
+	if (!caisseOuverte)
+		throw exception("Il n'y a aucune caisse d'overte!");
 	return cRapide;
 }
 
