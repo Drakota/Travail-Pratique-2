@@ -8,16 +8,16 @@ Quincaillerie::Quincaillerie(int NBCaisse) : vCaisses(NBCaisse)
 
 Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
 {
-	int indice;
+	int indiceDepart;
 	bool caisseOuverte = false;
 	// Si commercial on prend premiere caisse
 	// si non on prend la deuxieme
-	if (commercial == true) indice = 0;
-	else indice = 1;
+	if (commercial == true) indiceDepart = 0;
+	else indiceDepart = 1;
 
-	Caisse* cRapide = &GetCaisse(indice);
+	Caisse* cRapide = &GetCaisse(indiceDepart);
 
-	for (int i = indice; i < GetVectorCaisse().size(); i++)
+	for (int i = indiceDepart; i < GetVectorCaisse().size(); i++)
 	{
 		if (GetVectorCaisse().at(i).GetStatus() != FERMÉ)
 		{
@@ -26,8 +26,12 @@ Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
 				cRapide = &GetVectorCaisse().at(i);
 		}
 	}
+
+	if (caisseOuverte == false && GetCaisse(0).GetStatus() == OUVERT)
+		caisseOuverte = true;
+
 	if (!caisseOuverte)
-		throw exception("Il n'y a aucune caisse d'overte!");
+		throw exception("Il n'y a aucune caisse d'ouverte!");
 	return cRapide;
 }
 
