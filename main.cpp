@@ -49,9 +49,14 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 		if (vecClient.at(stoi(vectorElems.at(1)) - 1)->GetTypeClient() == TYPECOMMERCIAL)
 			plusRapide = magasin.GetCaissePlusRapide(true);
 		else
+<<<<<<< HEAD
 			plusRapide = magasin.GetCaissePlusRapide(false);
 
 		plusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
+=======
+			PlusRapide = Magasin.GetCaissePlusRapide(false);
+		PlusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
+>>>>>>> refs/remotes/origin/JO
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
