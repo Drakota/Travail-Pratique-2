@@ -18,12 +18,8 @@
 void DemanderFichier(bool i, SourceLecture& flecture, ofstream& fecriture);
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient);
 void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient);
-<<<<<<< HEAD
 void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient);
-=======
-void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient);
 void ÉcrireRapport(Quincaillerie& magasin, ofstream& flux);
->>>>>>> refs/remotes/origin/JO
 
 
 
@@ -33,11 +29,13 @@ void ÉcrireRapport(Quincaillerie& magasin, ofstream& flux)
 	int index;
 	for (int i = 0; i < magasin.GetVectorCaisse().size(); i++)
 	{
+		flux << "**************************************************" << endl;
 		flux << "******************** Caisse " << i + 1 << " ********************" << endl;
 		magasin.GetCaisse(i).AfficherCaisse(flux);
-		flux << "**************************************************" << endl;
+		flux << endl;
 	}
-	flux << "@@@@@@@@@@@@@@@@@@@@@@STATS@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+	flux << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+	flux << "@@@@@@@@@@@@@@@@@@@@@ STATS @@@@@@@@@@@@@@@@@@@@@@" << endl;
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusClients()) + 1;
 	flux << "Caisse qui a eu le plus grand nombre de clients: Caisse " << index << endl;
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusAttente()) + 1;
@@ -57,41 +55,22 @@ void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient)
 
 void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient)
 {
-<<<<<<< HEAD
 	Caisse* plusRapide;
 	if (vectorElems.at(0) == OUVRIRCAISSE)
-		if (magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).GetStatus() == FERMÉ)
-			magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
-		else
-			throw exception("La caisse était déjà ouverte!");
-	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
-		//// Ajoute le temps d'attente dans le client
-		vecClient.at(stoi(vectorElems.at(1)) - 1)->SetTempsClient(magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
-		//// Modifie la caisse (ajoute un client / ajoute le temps d'attente / **faire quelque chose avec le montant**)
-		if (vecClient.at(stoi(vectorElems.at(1)) - 1)->GetTypeClient() == TYPECOMMERCIAL)
-			plusRapide = magasin.GetCaissePlusRapide(true);
-		else
-			plusRapide = magasin.GetCaissePlusRapide(false);
-		plusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
-=======
-	Caisse* PlusRapide;
-	if (vectorElems.at(0) == OUVRIRCAISSE)
-	{
-		Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
-		Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).SetÉtéOuvert(true);
+		magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
+		magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).SetÉtéOuvert(true);
 	}
 	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
 		//// Ajoute le temps d'attente dans le client
-		vecClient.at(stoi(vectorElems.at(1)) - 1)->SetTempsClient(Magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
+		vecClient.at(stoi(vectorElems.at(1)) - 1)->SetTempsClient(magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
 
 		//// Modifie la caisse (ajoute un client / ajoute le temps d'attente / **faire quelque chose avec le montant**)
-		if (vecClient.at(stoi(vectorElems.at(1)) - 1)->GetTypeClient() == TYPECOMMERCIAL) PlusRapide = Magasin.GetCaissePlusRapide(true);
-		else PlusRapide = Magasin.GetCaissePlusRapide(false);
+		if (vecClient.at(stoi(vectorElems.at(1)) - 1)->GetTypeClient() == TYPECOMMERCIAL) plusRapide = magasin.GetCaissePlusRapide(true);
+		else plusRapide = magasin.GetCaissePlusRapide(false);
 
-		PlusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
->>>>>>> refs/remotes/origin/JO
+		plusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
@@ -147,5 +126,5 @@ int main()
 	DemanderFichier(OPÉRATIONS, fichierOpérations, fichierEcriture);
 	LireFichier(OPÉRATIONS, fichierOpérations, magasin, vecClients);
 
-	ÉcrireRapport(magasin, FichierEcriture);
+	ÉcrireRapport(magasin, fichierEcriture);
 }

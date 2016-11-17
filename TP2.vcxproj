@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Clients.txt" />
+    <Text Include="Journal_Op1.txt" />
     <Text Include="Op1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

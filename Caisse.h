@@ -10,37 +10,31 @@ class Caisse
 {
 	////////////////////////////////////////////////////
 	// Attributs
-<<<<<<< HEAD
 	deque<Client*> file;	// Contien les clients en ligne
 	bool status;			// Statue de la caisse (Fermer/Ouvert)
 	int tempsFile;			// Temps d'attente de la ligne
-	//////////////////////////////////////////////////////
-=======
-	deque<Client*> file;
-	bool status;
-	int tempsFile;
 	int tempsFileTotal;
 	bool étéOuvert;
 	float totalAchats;
 	int nbClientServis;
 	int nbClientsNonServis;
->>>>>>> refs/remotes/origin/JO
+	//
+	//////////////////////////////////////////////////////
 
 public:
 	// Constructeur par défaut
 	Caisse();
 	
-<<<<<<< HEAD
 	////////////////////////////////////////////////////
-=======
-	//Modificateur
+	// Mutateur
+
 	void SetÉtéOuvert(bool e) { étéOuvert = e; }
 	void SetTotalAchats(float e) { totalAchats = e; }
 	void SetNbClientsServis(int e) { nbClientServis = e; }
 	void SetNbClientsNonServis(int e) { nbClientsNonServis = e; }
 	void SetTempsFileTotal(int e) { tempsFileTotal = e; }
 
->>>>>>> refs/remotes/origin/JO
+	////////////////////////////////////////////////////
 	// Accesseurs
 
 	// GetStatus
@@ -54,20 +48,17 @@ public:
 	// Intrant: -------
 	// Extrant: - Le temps d'attente de la caisse
 	int GetTempsFile() const { return tempsFile; }
-<<<<<<< HEAD
-	//
-	////////////////////////////////////////////////////
-=======
-	bool GetÉtéOuvert() const { return étéOuvert; };
-	float GetTotalAchats() const { return totalAchats; }
+
 	int GetNbClientsServis() const { return nbClientServis; }
 	int GetNbClientsNonServis() const { return nbClientsNonServis; }
 	int GetTempsFileTotal() const { return tempsFileTotal; }
->>>>>>> refs/remotes/origin/JO
+	bool GetÉtéOuvert() const { return étéOuvert; };
+	float GetTotalAchats() const { return totalAchats; }
+	//
+	////////////////////////////////////////////////////
 
 	////////////////////////////////////////////////////
 	// Methodes
-<<<<<<< HEAD
 
 	// OuvrirCaisse
 	// Ouvre une caisse
@@ -89,10 +80,6 @@ public:
 	// Ajoute du temps d'attente à la file
 	// Intrant: - Un nombre de secondes
 	// Extrant: -------
-=======
-	void OuvrirCaisse() { status = OUVERT; }
-	void FermerCaisse() { status = FERMÉ; }
->>>>>>> refs/remotes/origin/JO
 	void AjouterTempsFile(int t) { tempsFile += t; }
 
 	// AjouterClientFile
@@ -101,15 +88,12 @@ public:
 	//			- Le montant que le client doit payer
 	// Extrant: -------
 	void AjouterClientFile(Client* client, float montantAchatClient);
-<<<<<<< HEAD
 
 	// RetirerClientFile
 	// Retire le premier client arriver dans la file
 	// Intrant: -------
 	// Extrant: -------
-=======
 	void AfficherCaisse(ofstream& flux);
->>>>>>> refs/remotes/origin/JO
 	void RetirerClientFile();
 	//
 	////////////////////////////////////////////////////
