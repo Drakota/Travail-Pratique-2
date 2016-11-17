@@ -7,6 +7,7 @@ using namespace std;
 class Client
 {
 protected:
+<<<<<<< HEAD
 	////////////////////////////////////////////////////
 	// Attributs
 	int numClient;				// Numéro du client
@@ -15,6 +16,13 @@ protected:
 	string clienType;			// Le type du client
 	//
 	////////////////////////////////////////////////////
+=======
+	int numClient;
+	int tempsAttenteClient;
+	string codePostal;
+	string clienType;
+	float montantAchat;
+>>>>>>> refs/remotes/origin/JO
 public:
 
 	////////////////////////////////////////////////////
@@ -40,9 +48,15 @@ public:
 	// Intrant: - Un nombre de secondes
 	// Extrant: ------
 	void SetTempsClient(int tempsEnseconde) { tempsAttenteClient = tempsEnseconde; }
+<<<<<<< HEAD
 	//
 	////////////////////////////////////////////////////
+=======
+	void SetMontantAchat(float montant) { montantAchat = montant; }
+>>>>>>> refs/remotes/origin/JO
 
+	virtual float GetPourcentageRabais() { return 1; }
+	float GetMontantAchat() { return montantAchat; }
 	int GetNumClient() const { return numClient; }
 	int GetTempsAttenteClient() const { return tempsAttenteClient; }
 	string GetTypeClient() const { return clienType; }

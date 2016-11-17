@@ -1,6 +1,6 @@
 #include "ClientCommercial.h"
 
-ClientCommercial::ClientCommercial(int NumClient, string type, string CodePostale, string Courriel, string Nom, string Prenom, int Rabais) : Client(NumClient, CodePostale, type)
+ClientCommercial::ClientCommercial(int NumClient, string type, string CodePostale, string Courriel, string Nom, string Prenom, float Rabais) : Client(NumClient, CodePostale, type)
 {
 	courriel = Courriel;
 	nomClient = Nom;
