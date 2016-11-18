@@ -58,8 +58,12 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 	Caisse* plusRapide;
 	if (vectorElems.at(0) == OUVRIRCAISSE)
 	{
-		magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
-		magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).SetÉtéOuvert(true);
+		if (stoi(vectorElems.at(1)) > 0 && stoi(vectorElems.at(1)) <= NBCAISSES)
+		{
+			magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
+			magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
+		}
+		else throw exception("Le numéro de la caisse est invalide!");
 	}
 	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
@@ -76,8 +80,15 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 	{
 		magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).RetirerClientFile();
 	}
-	else if (vectorElems.at(0) == FERMERCAISSE) magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
-	else cout << "Type d'opération inconnu..." << endl;
+	else if (vectorElems.at(0) == FERMERCAISSE)
+	{
+		if (stoi(vectorElems.at(1)) > 0 && stoi(vectorElems.at(1)) <= NBCAISSES)
+		{
+			magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
+		}
+		else throw exception("Le numéro de la caisse est invalide!");
+	}
+	else throw exception("Type d'opération inconnu...");
 }
 
 void DemanderFichier(bool i, SourceLecture& fichier, ofstream& fecriture)

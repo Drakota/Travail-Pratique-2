@@ -28,7 +28,7 @@ public:
 	////////////////////////////////////////////////////
 	// Mutateur
 
-	void Set…tÈOuvert(bool e) { ÈtÈOuvert = e; }
+	void SetEteOuvert(bool e) { ÈtÈOuvert = e; }
 	void SetTotalAchats(float e) { totalAchats = e; }
 	void SetNbClientsServis(int e) { nbClientServis = e; }
 	void SetNbClientsNonServis(int e) { nbClientsNonServis = e; }
@@ -64,9 +64,7 @@ public:
 	// Ouvre une caisse
 	// Intrant: -------
 	// Extrant: -------
-	void OuvrirCaisse() { status = OUVERT;
-	cout << "Ouvrir" << endl;
-	}
+	void OuvrirCaisse();
 
 	// FermerCaisse
 	// Ferme une caisse
