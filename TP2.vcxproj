@@ -162,9 +162,12 @@
     <ClInclude Include="SourceLecture.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Clients1.txt" />
     <Text Include="Clients.txt" />
     <Text Include="Journal_Op1.txt" />
+    <Text Include="Journal_operations.txt" />
     <Text Include="Op1.txt" />
+    <Text Include="operations.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

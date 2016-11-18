@@ -1,0 +1,61 @@
+**************************************************
+******************** Caisse 1 ********************
+À été ouverte: VRAI
+Nombre de clients servis: 1
+Total des achats encaissés: 1 705,95
+Nombre de clients non servis: 0
+Temps d'attente à la fin: 0
+
+**************************************************
+******************** Caisse 2 ********************
+À été ouverte: VRAI
+Nombre de clients servis: 2
+Total des achats encaissés: 200
+Nombre de clients non servis: 1
+------------------
+Client Privilégié
+------------------
+2
+pr
+G8V 4B2
+yvon.travailler@gmail.com
+Temps d'attente à la fin: 180
+
+**************************************************
+******************** Caisse 3 ********************
+À été ouverte: FAUX
+Nombre de clients servis: 0
+Total des achats encaissés: 0
+Nombre de clients non servis: 0
+Temps d'attente à la fin: 0
+
+**************************************************
+******************** Caisse 4 ********************
+À été ouverte: FAUX
+Nombre de clients servis: 0
+Total des achats encaissés: 0
+Nombre de clients non servis: 0
+Temps d'attente à la fin: 0
+
+**************************************************
+******************** Caisse 5 ********************
+À été ouverte: FAUX
+Nombre de clients servis: 0
+Total des achats encaissés: 0
+Nombre de clients non servis: 0
+Temps d'attente à la fin: 0
+
+**************************************************
+******************** Caisse 6 ********************
+À été ouverte: VRAI
+Nombre de clients servis: 0
+Total des achats encaissés: 0
+Nombre de clients non servis: 0
+Temps d'attente à la fin: 0
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@ STATS @@@@@@@@@@@@@@@@@@@@@@
+Caisse qui a eu le plus grand nombre de clients: Caisse 2
+Caisse où il y a eu le plus d’attente: Caisse 2
+Caisse qui à encaissé le plus d’argent: Caisse 1
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
