@@ -18,7 +18,7 @@
 void DemanderFichier(bool i, SourceLecture& flecture, ofstream& fecriture);
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient);
 void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient);
-void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient);
+void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient);
 void ÉcrireRapport(Quincaillerie& magasin, ofstream& flux);
 
 
@@ -29,11 +29,13 @@ void ÉcrireRapport(Quincaillerie& magasin, ofstream& flux)
 	int index;
 	for (int i = 0; i < magasin.GetVectorCaisse().size(); i++)
 	{
+		flux << "**************************************************" << endl;
 		flux << "******************** Caisse " << i + 1 << " ********************" << endl;
 		magasin.GetCaisse(i).AfficherCaisse(flux);
-		flux << "**************************************************" << endl;
+		flux << endl;
 	}
-	flux << "@@@@@@@@@@@@@@@@@@@@@@STATS@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+	flux << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+	flux << "@@@@@@@@@@@@@@@@@@@@@ STATS @@@@@@@@@@@@@@@@@@@@@@" << endl;
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusClients()) + 1;
 	flux << "Caisse qui a eu le plus grand nombre de clients: Caisse " << index << endl;
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusAttente()) + 1;
@@ -51,31 +53,42 @@ void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient)
 	else if (vectorElems.at(1) == TYPECOMMERCIAL) vecClient.push_back(new ClientCommercial(stoi(vectorElems.at(0)), vectorElems.at(1), vectorElems.at(2), vectorElems.at(3), vectorElems.at(4), vectorElems.at(5), stoi(vectorElems.at(6))));
 }
 
-void ExecuterOpérations(vector<string> vectorElems, Quincaillerie& Magasin, vector<Client*> vecClient)
+void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient)
 {
-	Caisse* PlusRapide;
+	Caisse* plusRapide;
 	if (vectorElems.at(0) == OUVRIRCAISSE)
 	{
-		Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
-		Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).SetÉtéOuvert(true);
+		if (stoi(vectorElems.at(1)) > 0 && stoi(vectorElems.at(1)) <= NBCAISSES)
+		{
+			magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
+			magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
+		}
+		else throw exception("Le numéro de la caisse est invalide!");
 	}
 	else if (vectorElems.at(0) == AJOUTERCLIENT)
 	{
 		//// Ajoute le temps d'attente dans le client
-		vecClient.at(stoi(vectorElems.at(1)) - 1)->SetTempsClient(Magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
+		vecClient.at(stoi(vectorElems.at(1)) - 1)->SetTempsClient(magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
 
 		//// Modifie la caisse (ajoute un client / ajoute le temps d'attente / **faire quelque chose avec le montant**)
-		if (vecClient.at(stoi(vectorElems.at(1)) - 1)->GetTypeClient() == TYPECOMMERCIAL) PlusRapide = Magasin.GetCaissePlusRapide(true);
-		else PlusRapide = Magasin.GetCaissePlusRapide(false);
+		if (vecClient.at(stoi(vectorElems.at(1)) - 1)->GetTypeClient() == TYPECOMMERCIAL) plusRapide = magasin.GetCaissePlusRapide(true);
+		else plusRapide = magasin.GetCaissePlusRapide(false);
 
-		PlusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
+		plusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
 	}
 	else if (vectorElems.at(0) == QUITTERCAISSE)
 	{
-		Magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).RetirerClientFile();
+		magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).RetirerClientFile();
 	}
-	else if (vectorElems.at(0) == FERMERCAISSE) Magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
-	else cout << "Type d'opération inconnu..." << endl;
+	else if (vectorElems.at(0) == FERMERCAISSE)
+	{
+		if (stoi(vectorElems.at(1)) > 0 && stoi(vectorElems.at(1)) <= NBCAISSES)
+		{
+			magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
+		}
+		else throw exception("Le numéro de la caisse est invalide!");
+	}
+	else throw exception("Type d'opération inconnu...");
 }
 
 void DemanderFichier(bool i, SourceLecture& fichier, ofstream& fecriture)
@@ -95,33 +108,34 @@ void DemanderFichier(bool i, SourceLecture& fichier, ofstream& fecriture)
 
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient)
 {
-	try
+	do
 	{
-		do
+		try
 		{
 			vector<string> vecElems;
 			fichier.Lire(vecElems);
 			if (i == CLIENT) CreerClient(vecElems, vecClient);
-			else if (i == OPÉRATIONS) ExecuterOpérations(vecElems, magasin, vecClient);
-		} while (fichier.PeutEncoreLire());
-	}
-	catch (const out_of_range& e) { cout << "Impossible de faire l'action" << endl; }
+			else if (i == OPÉRATIONS) ExecuterOperations(vecElems, magasin, vecClient);
+		}
+		catch (exception e) { cout << e.what() << endl; }
+
+	} while (fichier.PeutEncoreLire());
 }
 
 int main()
 {
 	locale::global(locale("")); // Permet les charactères français
 	vector<Client*> vecClients;
-	SourceLecture FichierClients;
-	SourceLecture FichierOpérations;
+	SourceLecture fichierClients;
+	SourceLecture fichierOpérations;
 	Quincaillerie magasin(NBCAISSES);
-	ofstream FichierEcriture;
+	ofstream fichierEcriture;
 
-	DemanderFichier(CLIENT, FichierClients, FichierEcriture);
-	LireFichier(CLIENT, FichierClients, magasin, vecClients);
+	DemanderFichier(CLIENT, fichierClients, fichierEcriture);
+	LireFichier(CLIENT, fichierClients, magasin, vecClients);
 
-	DemanderFichier(OPÉRATIONS, FichierOpérations, FichierEcriture);
-	LireFichier(OPÉRATIONS, FichierOpérations, magasin, vecClients);
+	DemanderFichier(OPÉRATIONS, fichierOpérations, fichierEcriture);
+	LireFichier(OPÉRATIONS, fichierOpérations, magasin, vecClients);
 
-	ÉcrireRapport(magasin, FichierEcriture);
+	ÉcrireRapport(magasin, fichierEcriture);
 }
