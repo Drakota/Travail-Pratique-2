@@ -14,7 +14,6 @@ public:
 
 	////////////////////////////////////////////////////
 	// Méthode virtual
-
 	// Afficher
 	// Affiche les infos du client selon son type
 	// Intrant: - Le flux de sortie

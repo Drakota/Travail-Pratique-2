@@ -22,7 +22,7 @@ void Caisse::AjouterClientFile(Client* client, float montantAchatClient)
 void Caisse::AfficherCaisse(ofstream& flux)
 {
 	flux << "À été ouverte: ";
-	if (GetEteOuvert()) flux << "VRAI" << endl; else flux << "FAUX" << endl;
+	if (GetÉtéOuvert()) flux << "VRAI" << endl; else flux << "FAUX" << endl;
 	flux << "Nombre de clients servis: " << GetNbClientsServis() << endl;
 	flux << "Total des achats encaissés: " << GetTotalAchats() << endl;
 	flux << "Nombre de clients non servis: " << GetNbClientsNonServis() << endl;
