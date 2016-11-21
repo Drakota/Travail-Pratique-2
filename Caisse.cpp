@@ -21,16 +21,21 @@ void Caisse::AjouterClientFile(Client* client, float montantAchatClient)
 
 void Caisse::AfficherCaisse(ofstream& flux)
 {
-	flux << "À été ouverte: ";
+	flux << "--------------------------------------------------" << endl;
+	flux << "@Status: ";
+	if (GetStatus()) flux << "OUVERT" << endl; else flux << "FERMÉ" << endl;
+	flux << "@À été ouverte: ";
 	if (GetÉtéOuvert()) flux << "VRAI" << endl; else flux << "FAUX" << endl;
-	flux << "Nombre de clients servis: " << GetNbClientsServis() << endl;
-	flux << "Total des achats encaissés: " << GetTotalAchats() << endl;
-	flux << "Nombre de clients non servis: " << GetNbClientsNonServis() << endl;
+	flux << "@Nombre de clients servis: " << GetNbClientsServis() << endl;
+	flux << "@Total des achats encaissés: " << GetTotalAchats() << endl;
+	flux << "@Nombre de clients non servis: " << GetNbClientsNonServis() << endl;
 	for (int i = 0; i < file.size(); i++)
 	{
 		file.at(i)->Afficher(flux);
 	}
-	flux << "Temps d'attente à la fin: " << GetTempsFile() << endl;
+	flux << "@Temps d'attente à la fin: " << GetTempsFile() << endl;
+	flux << "@Temps total d'attente: " << GetTempsFileTotal() << endl;
+	flux << "--------------------------------------------------" << endl;
 }
 
 void Caisse::RetirerClientFile()

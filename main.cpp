@@ -15,32 +15,64 @@
 #include <sstream>
 #include <vector>
 
+int main()
+{
+	locale::global(locale(""));			// Permet les charactères français
+	vector<Client*> vecClients;			// Vecteur contenant les clients
+	SourceLecture fichierClients;		// Le fichier des clients
+	SourceLecture fichierOpérations;	// Le fichier des opérations
+	Quincaillerie magasin(NBCAISSES);	// La quincaillerie
+	ofstream fichierEcriture;			// Le fichier du rapport final
+
+										// Traiter le fichier client
+	DemanderFichier(CLIENT, fichierClients, fichierEcriture);
+	LireFichier(CLIENT, fichierClients, magasin, vecClients, fichierEcriture);
+	// Traiter le fichier opération
+	DemanderFichier(OPERATIONS, fichierOpérations, fichierEcriture);
+	LireFichier(OPERATIONS, fichierOpérations, magasin, vecClients, fichierEcriture);
+	// Écrire le rapport final
+	EcrireStatsFinales(magasin, fichierEcriture);
+}
+
+Client* GetClientByNum(vector<Client*> vecClients, int Num)
+{
+	Client* client;
+	for (int i = 0; i < vecClients.size(); i++)
+	{
+		if (vecClients.at(i)->GetNumClient() == Num) client = vecClients.at(i);
+	}
+	return client;
+}
+
+#pragma region WriteFile
 void StatusCaisse(Quincaillerie& magasin, ofstream& flux)
 {
 	for (int i = 0; i < magasin.GetVectorCaisse().size(); i++)
 	{
-		flux << "**************************************************" << endl;
 		flux << "******************** Caisse " << i + 1 << " ********************" << endl;
 		magasin.GetCaisse(i).AfficherCaisse(flux);
 		flux << endl;
 	}
 }
 
-/**Je vais peut etre bouger ste fonction la dans Quincaillerie**/
 void EcrireStatsFinales(Quincaillerie& magasin, ofstream& flux)
 {
-	int index;		
+	int index;
 	flux << "@@@@@@@@@@@@@@@@@@@@@ STATS @@@@@@@@@@@@@@@@@@@@@@" << endl;
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusClients()) + 1;
 	flux << "Caisse qui a eu le plus grand nombre de clients: Caisse " << index << endl;
+	magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusClients()->AfficherCaisse(flux);
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusAttente()) + 1;
 	flux << "Caisse où il y a eu le plus d’attente: Caisse " << index << endl;
+	magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusAttente()->AfficherCaisse(flux);
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusArgent()) + 1;
 	flux << "Caisse qui à encaissé le plus d’argent: Caisse " << index << endl;
+	magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusArgent()->AfficherCaisse(flux);
 	flux << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
 }
+#pragma endregion
 
-
+#pragma region Quincaillerie
 void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient)
 {
 	if (vectorElems.at(1) == TYPEPARTICULIER) vecClient.push_back(new ClientParticulier(stoi(vectorElems.at(0)), vectorElems.at(1), vectorElems.at(2)));
@@ -50,68 +82,13 @@ void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient)
 
 void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient, ofstream& flux)
 {
-	Caisse* plusRapide;
 	try
 	{
-		if (vectorElems.at(0) == OUVRIRCAISSE)
-		{
-			if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < NBCAISSES)
-			{
-				if (magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).GetStatus() != OUVERT)
-				{
-					magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
-					magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
-					flux << "--OUVERTURE DE LA CAISSE #" << vectorElems.at(1) << endl;
-				}
-				else flux << "CAISSE #" << vectorElems.at(1) << " DÉJÀ OUVERTE" << endl;
-			}
-			else throw exception("Le numéro de la caisse est invalide!");
-		}
-		else if (vectorElems.at(0) == AJOUTERCLIENT)
-		{
-			if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < vecClient.size())
-			{
-				Client* client = GetClientByNum(vecClient, stoi(vectorElems.at(1)));
-				//// Ajoute le temps d'attente dans le client
-				client->SetTempsClient(magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
-
-				//// Modifie la caisse (ajoute un client / ajoute le temps d'attente / **faire quelque chose avec le montant**)
-				if (client->GetTypeClient() == TYPECOMMERCIAL) plusRapide = magasin.GetCaissePlusRapide(true);
-				else plusRapide = magasin.GetCaissePlusRapide(false);
-
-				plusRapide->AjouterClientFile(client, stof(vectorElems.at(3)));
-				flux << "--AJOUT CLIENT #" << vectorElems.at(1) << endl;
-			}
-			else throw exception("Client Invalide!");
-		}
-		else if (vectorElems.at(0) == QUITTERCAISSE)
-		{
-			if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < NBCAISSES)
-			{
-				if (magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).GetFile().size() != 0)
-				{
-					magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).RetirerClientFile();
-					flux << "--TERMINER CAISSE #" << vectorElems.at(1) << endl;
-				}
-				else throw exception("Caisse Vide!");
-			}
-			else throw exception("Le numéro de la caisse est invalide!");
-		}
-		else if (vectorElems.at(0) == FERMERCAISSE)
-		{
-				if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < NBCAISSES)
-				{
-					if (magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).GetStatus() != FERMÉ)
-					{
-						magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
-						flux << "--FERMETURE DE LA CAISSE #" << vectorElems.at(1) << endl;
-					}
-					else flux << "CAISSE #" << vectorElems.at(1) << " DÉJÀ FERMÉ" << endl;
-				}
-				else throw exception("Le numéro de la caisse est invalide!");
-		}
+		if (vectorElems.at(0) == OUVRIRCAISSE) OuvrirCaisse(vectorElems, magasin, flux);
+		else if (vectorElems.at(0) == AJOUTERCLIENT) AjouterClient(vectorElems, magasin, vecClient, flux);
+		else if (vectorElems.at(0) == QUITTERCAISSE) QuitterCaisse(vectorElems, magasin, flux);
+		else if (vectorElems.at(0) == FERMERCAISSE) FermerCaisse(vectorElems, magasin, flux);
 		else throw exception("Type d'opération inconnu...");
-
 		StatusCaisse(magasin, flux);
 	}
 	catch (exception e) { flux << e.what() << endl; }
@@ -132,7 +109,7 @@ void DemanderFichier(TypeFichier typeFichier, SourceLecture& fichier, ofstream& 
 	if (typeFichier == OPERATIONS) fecriture.open("Journal_" + nomFichier);
 }
 
-void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient, ofstream& flux)
+void LireFichier(TypeFichier i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient, ofstream& flux)
 {
 	do
 	{
@@ -142,35 +119,68 @@ void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<
 		else if (i == OPERATIONS) ExecuterOperations(vecElems, magasin, vecClient, flux);
 	} while (fichier.PeutEncoreLire());
 }
+#pragma endregion 
 
-Client* GetClientByNum(vector<Client*> vecClients, int Num)
+#pragma region Operations
+void OuvrirCaisse(vector<string> vectorElems, Quincaillerie& magasin, ofstream& flux)
 {
-	Client* client;
-	for (int i = 0; i < vecClients.size(); i++)
+	if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < NBCAISSES)
 	{
-		if (vecClients.at(i)->GetNumClient() == Num)
+		if (magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).GetStatus() != OUVERT)
 		{
-			client = vecClients.at(i);
+			magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
+			magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
+			flux << "--OUVERTURE DE LA CAISSE #" << vectorElems.at(1) << endl;
 		}
+		else flux << "CAISSE #" << vectorElems.at(1) << " DÉJÀ OUVERTE" << endl;
 	}
-	return client;
+	else throw exception("Le numéro de la caisse est invalide!");
 }
 
-int main()
+void AjouterClient(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient, ofstream& flux)
 {
-	locale::global(locale(""));			// Permet les charactères français
-	vector<Client*> vecClients;			// Vecteur contenant les clients
-	SourceLecture fichierClients;		// Le fichier des clients
-	SourceLecture fichierOpérations;	// Le fichier des opérations
-	Quincaillerie magasin(NBCAISSES);	// La quincaillerie
-	ofstream fichierEcriture;			// Le fichier du rapport final
+	Caisse* plusRapide;
+	if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < vecClient.size())
+	{
+		Client* client = GetClientByNum(vecClient, stoi(vectorElems.at(1)));
+		//// Ajoute le temps d'attente dans le client
+		client->SetTempsClient(magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
 
-	// Traiter le fichier client
-	DemanderFichier(CLIENT, fichierClients, fichierEcriture);
-	LireFichier(CLIENT, fichierClients, magasin, vecClients, fichierEcriture);
-	// Traiter le fichier opération
-	DemanderFichier(OPERATIONS, fichierOpérations, fichierEcriture);
-	LireFichier(OPERATIONS, fichierOpérations, magasin, vecClients, fichierEcriture);
-	// Écrire le rapport final
-	EcrireStatsFinales(magasin, fichierEcriture);
+		//// Modifie la caisse (ajoute un client / ajoute le temps d'attente / **faire quelque chose avec le montant**)
+		if (client->GetTypeClient() == TYPECOMMERCIAL) plusRapide = magasin.GetCaissePlusRapide(true);
+		else plusRapide = magasin.GetCaissePlusRapide(false);
+
+		plusRapide->AjouterClientFile(client, stof(vectorElems.at(3)));
+		flux << "--AJOUT CLIENT #" << vectorElems.at(1) << endl;
+	}
+	else throw exception("Client Invalide!");
 }
+
+void QuitterCaisse(vector<string> vectorElems, Quincaillerie& magasin, ofstream& flux)
+{
+	if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < NBCAISSES)
+	{
+		if (magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).GetFile().size() != 0)
+		{
+			magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).RetirerClientFile();
+			flux << "--TERMINER CAISSE #" << vectorElems.at(1) << endl;
+		}
+		else throw exception("Caisse Vide!");
+	}
+	else throw exception("Le numéro de la caisse est invalide!");
+}
+
+void FermerCaisse(vector<string> vectorElems, Quincaillerie& magasin, ofstream& flux)
+{
+	if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < NBCAISSES)
+	{
+		if (magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).GetStatus() != FERMÉ)
+		{
+			magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
+			flux << "--FERMETURE DE LA CAISSE #" << vectorElems.at(1) << endl;
+		}
+		else flux << "CAISSE #" << vectorElems.at(1) << " DÉJÀ FERMÉ" << endl;
+	}
+	else throw exception("Le numéro de la caisse est invalide!");
+}
+#pragma endregion
