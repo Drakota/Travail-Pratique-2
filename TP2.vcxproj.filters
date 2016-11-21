@@ -65,9 +65,16 @@
     <ClInclude Include="SourceLecture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Prototype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Clients.txt" />
     <Text Include="Op1.txt" />
+    <Text Include="Journal_Op1.txt" />
+    <Text Include="operations.txt" />
+    <Text Include="Journal_operations.txt" />
+    <Text Include="Clients1.txt" />
+    <Text Include="Clients.txt" />
   </ItemGroup>
 </Project>

@@ -1,19 +1,50 @@
 #include "Caisse.h"
 #include "Constantes.h"
 
-Caisse::Caisse() : tempsFile(0), status(FERMÉ)
+Caisse::Caisse() : tempsFile(0), status(FERMÉ), nbClientServis(0), eteOuvert(false), totalAchats(0), nbClientsNonServis(0), tempsFileTotal(0)
 {
 }
 
-int Caisse::ConvertirMinute(string Min)
+void Caisse::AjouterClientFile(Client* client, float montantAchatClient)
 {
-	int NBSecondes = stoi(Min.substr(0, Min.find(":"))) * 60 + stoi(Min.substr(Min.find(":") + 1, Min.size()));
-	return NBSecondes;
+	file.push_back(client);
+	tempsFile += client->GetTempsAttenteClient();
+	SetTempsFileTotal(GetTempsFileTotal() + client->GetTempsAttenteClient());
+	SetNbClientsNonServis(GetNbClientsNonServis() +	1);
+	if (client->GetTypeClient() != TYPECOMMERCIAL) client->SetMontantAchat(montantAchatClient);
+	else
+	{
+		montantAchatClient -= (montantAchatClient * (client->GetPourcentageRabais()/100));
+		client->SetMontantAchat(montantAchatClient);
+	}
 }
 
-void Caisse::AjouterClientFile(string typeClient)
+void Caisse::AfficherCaisse(ofstream& flux)
 {
-	/*Permet d'ajouter des clients dans une file d'une caisse*/
+	flux << "--------------------------------------------------" << endl;
+	flux << "@Status: ";
+	if (GetStatus()) flux << "OUVERT" << endl; else flux << "FERMÉ" << endl;
+	flux << "@À été ouverte: ";
+	if (GetEteOuvert()) flux << "VRAI" << endl; else flux << "FAUX" << endl;
+	flux << "@Nombre de clients servis: " << GetNbClientsServis() << endl;
+	flux << "@Total des achats encaissés: " << GetTotalAchats() << endl;
+	flux << "@Nombre de clients non servis: " << GetNbClientsNonServis() << endl;
+	for (int i = 0; i < file.size(); i++)
+	{
+		file.at(i)->Afficher(flux);
+	}
+	flux << "@Temps d'attente à la fin: " << GetTempsFile() << endl;
+	flux << "@Temps total d'attente: " << GetTempsFileTotal() << endl;
+	flux << "--------------------------------------------------" << endl;
+}
+
+void Caisse::RetirerClientFile()
+{
+	tempsFile -= file.at(0)->GetTempsAttenteClient();
+	SetTotalAchats(GetTotalAchats() + file.at(0)->GetMontantAchat());
+	file.pop_front();
+	SetNbClientsNonServis(GetNbClientsNonServis() - 1);
+	SetNbClientsServis(GetNbClientsServis() + 1);
 }
 
 

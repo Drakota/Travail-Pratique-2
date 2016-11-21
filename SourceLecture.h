@@ -1,3 +1,4 @@
+#pragma once
 //--------------------------------------------------------
 //
 // SourceLecture.h
@@ -29,10 +30,6 @@ public:
 
 	//----- Méthode qui permet d'obtenir la prochaine valeur lue
 	void Lire(vector<string> & vecElems);
-	int  LireEntier();
-	double LireDouble();
-	string LireChaine(); 
-	char LireCaractere();
 
 	//----- Méthode qui permet de savoir s'il y a encore des valeurs à lire
 	bool PeutEncoreLire();
@@ -42,7 +39,5 @@ private:
 	stringstream flux;
 	ifstream     fEntrée;					// Nom logique du fichier d'entrée
 	bool         ouvertureRéussie;			// Attribut qui indique si on a réussi à ouvrir le fichier correctement
-
 	void SetOuvertureReussie(bool reussi);	// Manipulateur privé de l'attribut ouvertureRéussie
-
 };
