@@ -83,4 +83,4 @@ public:
 	string GetTypeClient() const { return clienType; }
 	//
 	////////////////////////////////////////////////////
-}
+};
