@@ -16,17 +16,6 @@
 #include <vector>
 
 
-<<<<<<< HEAD
-=======
-void DemanderFichier(bool i, SourceLecture& flecture, ofstream& fecriture);
-void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient, ofstream& flux);
-void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient);
-void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient, ofstream& flux);
-void ÉcrireRapport(Quincaillerie& magasin, ofstream& flux);
-Client* GetClientByNum(vector<Client*> vecClients, int Num);
-
-
->>>>>>> refs/remotes/origin/JO
 /**Je vais peut etre bouger ste fonction la dans Quincaillerie**/
 void EcrireRapport(Quincaillerie& magasin, ofstream& flux)
 {
@@ -63,39 +52,12 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 	{
 		if (vectorElems.at(0) == OUVRIRCAISSE)
 		{
-<<<<<<< HEAD
-			magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
-			magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
-		}
-		else throw exception("Le numéro de la caisse est invalide!");
-	}
-	else if (vectorElems.at(0) == AJOUTERCLIENT)
-	{
-		// Ajoute le temps d'attente dans le client
-		vecClient.at(stoi(vectorElems.at(1)) - 1)->SetTempsClient(magasin.ConvertirMinuteEnSeconde(vectorElems.at(2)));
-
-		// Modifie la caisse (ajoute un client / ajoute le temps d'attente)
-		if (vecClient.at(stoi(vectorElems.at(1)) - 1)->GetTypeClient() == TYPECOMMERCIAL) plusRapide = magasin.GetCaissePlusRapide(true);
-		else plusRapide = magasin.GetCaissePlusRapide(false);
-
-		plusRapide->AjouterClientFile(vecClient.at(stoi(vectorElems.at(1)) - 1), stof(vectorElems.at(3)));
-	}
-	else if (vectorElems.at(0) == QUITTERCAISSE)
-	{
-		magasin.GetCaisse(stoi(vectorElems.at(1)) - 1).RetirerClientFile();
-	}
-	else if (vectorElems.at(0) == FERMERCAISSE)
-	{
-		if (stoi(vectorElems.at(1)) > 0 && stoi(vectorElems.at(1)) <= NBCAISSES)
-		{
-			magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
-=======
 			if (stoi(vectorElems.at(1)) - 1 >= 0 && stoi(vectorElems.at(1)) - 1 < NBCAISSES)
 			{
 				if (magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).GetStatus() != OUVERT)
 				{
-					magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
-					magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
+					magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
+					magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
 					flux << "--OUVERTURE DE LA CAISSE #" << vectorElems.at(1) << endl;
 				}
 				else flux << "CAISSE #" << vectorElems.at(1) << " DÉJÀ OUVERTE" << endl;
@@ -138,13 +100,12 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 				{
 					if (magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).GetStatus() != FERMÉ)
 					{
-						magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
+						magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
 						flux << "--FERMETURE DE LA CAISSE #" << vectorElems.at(1) << endl;
 					}
 					else flux << "CAISSE #" << vectorElems.at(1) << " DÉJÀ FERMÉ" << endl;
 				}
 				else throw exception("Le numéro de la caisse est invalide!");
->>>>>>> refs/remotes/origin/JO
 		}
 		else throw exception("Type d'opération inconnu...");
 	}
@@ -158,26 +119,22 @@ void DemanderFichier(TypeFichier typeFichier, SourceLecture& fichier, ofstream& 
 	{
 		cout << "------------------------------------" << endl;
 		if (typeFichier == CLIENT) cout << "Entrez un nom de fichier de clients: " << endl;
-		else if (typeFichier == OPÉRATIONS) cout << "Entrez un nom de fichier d'opérations: " << endl;
+		else if (typeFichier == OPERATIONS) cout << "Entrez un nom de fichier d'opérations: " << endl;
 		cout << "------------------------------------" << endl;
 		cin >> nomFichier;
 		fichier.SetNomSourceLecture(nomFichier);
 	} while (!fichier.EstCapableDeLire());
-	if (typeFichier == OPÉRATIONS) fecriture.open("Journal_" + nomFichier);
+	if (typeFichier == OPERATIONS) fecriture.open("Journal_" + nomFichier);
 }
 
-<<<<<<< HEAD
-void LireFichier(TypeFichier typeFichier, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient)
-=======
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient, ofstream& flux)
->>>>>>> refs/remotes/origin/JO
 {
 	do
 	{
 		vector<string> vecElems;
 		fichier.Lire(vecElems);
 		if (i == CLIENT) CreerClient(vecElems, vecClient);
-		else if (i == OPÉRATIONS) ExecuterOperations(vecElems, magasin, vecClient, flux);
+		else if (i == OPERATIONS) ExecuterOperations(vecElems, magasin, vecClient, flux);
 	} while (fichier.PeutEncoreLire());
 }
 
@@ -188,20 +145,10 @@ Client* GetClientByNum(vector<Client*> vecClients, int Num)
 	{
 		if (vecClients.at(i)->GetNumClient() == Num)
 		{
-<<<<<<< HEAD
-			vector<string> vecElems;
-			fichier.Lire(vecElems);
-			if (typeFichier == CLIENT) CreerClient(vecElems, vecClient);
-			else if (typeFichier == OPÉRATIONS) ExecuterOperations(vecElems, magasin, vecClient);
-		}
-		catch (exception e) { cout << e.what() << endl; }
-	} while (fichier.PeutEncoreLire());
-=======
 			client = vecClients.at(i);
 		}
 	}
 	return client;
->>>>>>> refs/remotes/origin/JO
 }
 
 int main()
@@ -215,19 +162,10 @@ int main()
 
 	// Traiter le fichier client
 	DemanderFichier(CLIENT, fichierClients, fichierEcriture);
-<<<<<<< HEAD
-	LireFichier(CLIENT, fichierClients, magasin, vecClients);
+	LireFichier(CLIENT, fichierClients, magasin, vecClients, fichierEcriture);
 	// Traiter le fichier opération
-	DemanderFichier(OPÉRATIONS, fichierOpérations, fichierEcriture);
-	LireFichier(OPÉRATIONS, fichierOpérations, magasin, vecClients);
+	DemanderFichier(OPERATIONS, fichierOpérations, fichierEcriture);
+	LireFichier(OPERATIONS, fichierOpérations, magasin, vecClients, fichierEcriture);
 	// Écrire le rapport final
 	EcrireRapport(magasin, fichierEcriture);
-=======
-	LireFichier(CLIENT, fichierClients, magasin, vecClients, fichierEcriture);
-
-	DemanderFichier(OPÉRATIONS, fichierOpérations, fichierEcriture);
-	LireFichier(OPÉRATIONS, fichierOpérations, magasin, vecClients, fichierEcriture);
-
-	ÉcrireRapport(magasin, fichierEcriture);
->>>>>>> refs/remotes/origin/JO
 }
