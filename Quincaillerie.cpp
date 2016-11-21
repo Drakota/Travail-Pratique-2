@@ -45,10 +45,8 @@ Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
 				cRapide = &GetVectorCaisse().at(i);
 		}
 	}
-
 	if (caisseOuverte == false && GetCaisse(0).GetStatus() == OUVERT)
 		caisseOuverte = true;
-
 	if (!caisseOuverte)
 		throw exception("Il n'y a aucune caisse d'ouverte!");
 	return cRapide;

@@ -3,7 +3,7 @@
 using namespace std;
 
 // Énum
-enum Status { FERMÉ , OUVERT};
+enum Status { FERMÉ , OUVERT };
 enum DemanderFichier { CLIENT, OPÉRATIONS };
 
 // Constantes générales
