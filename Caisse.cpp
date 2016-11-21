@@ -5,12 +5,6 @@ Caisse::Caisse() : tempsFile(0), status(FERMÉ), nbClientServis(0), eteOuvert(fal
 {
 }
 
-void Caisse::OuvrirCaisse()
-{
-	status = OUVERT;
-	cout << "Ouvrir" << endl;
-}
-
 void Caisse::AjouterClientFile(Client* client, float montantAchatClient)
 {
 	file.push_back(client);

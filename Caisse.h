@@ -49,6 +49,7 @@ public:
 	// Extrant: - Le temps d'attente de la caisse
 	int GetTempsFile() const { return tempsFile; }
 
+	deque<Client*> GetFile() const { return file; }
 	int GetNbClientsServis() const { return nbClientServis; }
 	int GetNbClientsNonServis() const { return nbClientsNonServis; }
 	int GetTempsFileTotal() const { return tempsFileTotal; }
@@ -64,15 +65,13 @@ public:
 	// Ouvre une caisse
 	// Intrant: -------
 	// Extrant: -------
-	void OuvrirCaisse();
+	void OuvrirCaisse() { status = OUVERT; };
 
 	// FermerCaisse
 	// Ferme une caisse
 	// Intrant: -------
 	// Extrant: -------
-	void FermerCaisse() { status = FERMÉ; 
-	cout << "Fermeture" << endl;
-	}
+	void FermerCaisse() { status = FERMÉ; }
 
 	// AjouterTempsFile
 	// Ajoute du temps d'attente à la file

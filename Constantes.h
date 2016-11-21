@@ -3,8 +3,13 @@
 using namespace std;
 
 // Énum
+<<<<<<< HEAD
 enum Status { FERMÉ , OUVERT};				// Le status de la caisse
 enum TypeFichier { CLIENT, OPÉRATIONS };	// Le type de fichier à traiter
+=======
+enum Status { FERMÉ , OUVERT };
+enum DemanderFichier { CLIENT, OPÉRATIONS };
+>>>>>>> refs/remotes/origin/JO
 
 // Constantes générales
 const int NBCAISSES = 6;					// Le nombre de caisse dans la quincaillerie
