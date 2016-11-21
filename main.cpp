@@ -132,14 +132,14 @@ void DemanderFichier(TypeFichier typeFichier, SourceLecture& fichier, ofstream& 
 	if (typeFichier == OPERATIONS) fecriture.open("Journal_" + nomFichier);
 }
 
-void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient, ofstream& flux)
+void LireFichier(TypeFichier typeFichier, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient, ofstream& flux)
 {
 	do
 	{
 		vector<string> vecElems;
 		fichier.Lire(vecElems);
-		if (i == CLIENT) CreerClient(vecElems, vecClient);
-		else if (i == OPERATIONS) ExecuterOperations(vecElems, magasin, vecClient, flux);
+		if (typeFichier == CLIENT) CreerClient(vecElems, vecClient);
+		else if (typeFichier == OPERATIONS) ExecuterOperations(vecElems, magasin, vecClient, flux);
 	} while (fichier.PeutEncoreLire());
 }
 
