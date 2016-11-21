@@ -15,11 +15,8 @@
 #include <sstream>
 #include <vector>
 
-
-/**Je vais peut etre bouger ste fonction la dans Quincaillerie**/
-void EcrireRapport(Quincaillerie& magasin, ofstream& flux)
+void StatusCaisse(Quincaillerie& magasin, ofstream& flux)
 {
-	int index;
 	for (int i = 0; i < magasin.GetVectorCaisse().size(); i++)
 	{
 		flux << "**************************************************" << endl;
@@ -27,6 +24,12 @@ void EcrireRapport(Quincaillerie& magasin, ofstream& flux)
 		magasin.GetCaisse(i).AfficherCaisse(flux);
 		flux << endl;
 	}
+}
+
+/**Je vais peut etre bouger ste fonction la dans Quincaillerie**/
+void EcrireStatsFinales(Quincaillerie& magasin, ofstream& flux)
+{
+	int index;		
 	flux << "@@@@@@@@@@@@@@@@@@@@@ STATS @@@@@@@@@@@@@@@@@@@@@@" << endl;
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusClients()) + 1;
 	flux << "Caisse qui a eu le plus grand nombre de clients: Caisse " << index << endl;
@@ -108,6 +111,8 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 				else throw exception("Le numéro de la caisse est invalide!");
 		}
 		else throw exception("Type d'opération inconnu...");
+
+		StatusCaisse(magasin, flux);
 	}
 	catch (exception e) { flux << e.what() << endl; }
 }
@@ -167,5 +172,5 @@ int main()
 	DemanderFichier(OPERATIONS, fichierOpérations, fichierEcriture);
 	LireFichier(OPERATIONS, fichierOpérations, magasin, vecClients, fichierEcriture);
 	// Écrire le rapport final
-	EcrireRapport(magasin, fichierEcriture);
+	EcrireStatsFinales(magasin, fichierEcriture);
 }
