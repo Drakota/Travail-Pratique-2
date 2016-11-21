@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// Caisse.cpp
+//
+// Définition de la classe Caisse qui permet de 
+// créer une caisse et ajouter des clients
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #include "Caisse.h"
 #include "Constantes.h"
 
@@ -8,7 +16,7 @@ Caisse::Caisse() : tempsFile(0), status(FERMÉ), nbClientServis(0), eteOuvert(fal
 void Caisse::AjouterClientFile(Client* client, float montantAchatClient)
 {
 	file.push_back(client);
-	tempsFile += client->GetTempsAttenteClient();
+	tempsFile += client->GetTempsAttenteClient(); 
 	SetTempsFileTotal(GetTempsFileTotal() + client->GetTempsAttenteClient());
 	SetNbClientsNonServis(GetNbClientsNonServis() +	1);
 	if (client->GetTypeClient() != TYPECOMMERCIAL) client->SetMontantAchat(montantAchatClient);

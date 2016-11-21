@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// ClientPrivilégié.h
+//
+// Déclaration de la classe ClientPrivilégié qui permet de 
+// créer un ClientPrivilégié
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #pragma once
 #include "Client.h"
 
