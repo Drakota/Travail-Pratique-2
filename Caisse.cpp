@@ -25,7 +25,7 @@ void Caisse::AfficherCaisse(ofstream& flux)
 	flux << "@Status: ";
 	if (GetStatus()) flux << "OUVERT" << endl; else flux << "FERMÉ" << endl;
 	flux << "@À été ouverte: ";
-	if (GetÉtéOuvert()) flux << "VRAI" << endl; else flux << "FAUX" << endl;
+	if (GetEteOuvert()) flux << "VRAI" << endl; else flux << "FAUX" << endl;
 	flux << "@Nombre de clients servis: " << GetNbClientsServis() << endl;
 	flux << "@Total des achats encaissés: " << GetTotalAchats() << endl;
 	flux << "@Nombre de clients non servis: " << GetNbClientsNonServis() << endl;
