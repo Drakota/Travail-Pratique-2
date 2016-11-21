@@ -1,3 +1,12 @@
+//--------------------------------------------------------
+//
+// Quincaillerie.h
+//
+// Déclaration de la classe Quincaillerie qui permet de 
+// créer une instance de quincaillerie qui permet
+// d'ajouter ou enlever des clients à des caisses
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #pragma once
 #include <vector>
 #include "Caisse.h"

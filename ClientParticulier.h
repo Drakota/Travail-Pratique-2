@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// ClientParticulier.h
+//
+// Déclaration de la classe ClientParticulier qui permet de 
+// créer un ClientParticulier
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #pragma once
 #include "Client.h"
 

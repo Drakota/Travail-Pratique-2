@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// Constantes.h
+//
+// Déclaration de la classe Constantes qui permet d'utiliser
+// certaines constantes à travers le programme
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #pragma once
 #include <string>
 using namespace std;

@@ -59,10 +59,10 @@
     <ClInclude Include="Quincaillerie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Caisse.h">
+    <ClInclude Include="SourceLecture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SourceLecture.h">
+    <ClInclude Include="Caisse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Prototype.h">

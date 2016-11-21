@@ -1,4 +1,16 @@
+<<<<<<< HEAD
 ﻿#pragma once
+=======
+﻿//--------------------------------------------------------
+//
+// Caisse.h
+//
+// Déclaration de la classe Caisse qui permet de 
+// créer une caisse et ajouter des clients
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
+#pragma once
+>>>>>>> refs/remotes/origin/JO
 #include "Client.h"
 #include <deque>
 #include "Constantes.h"
@@ -10,8 +22,8 @@ class Caisse
 {
 	////////////////////////////////////////////////////
 	// Attributs
-	deque<Client*> file;	// Contien les clients en ligne
-	bool status;			// Statue de la caisse (Fermer/Ouvert)
+	deque<Client*> file;	// Contient les clients en ligne
+	bool status;			// Status de la caisse (Fermer/Ouvert)
 	int tempsFile;			// Temps d'attente de la ligne
 	int tempsFileTotal;		// Temps total d'attente à la caisse
 	bool eteOuvert;			// Si la caisse a été ouverte ou non
@@ -60,13 +72,13 @@ public:
 	// Accesseurs
 
 	// GetStatus
-	// Optient le statue de la caisse
+	// Retourne le statue de la caisse
 	// Intrant: -------
 	// Extrant: - Le statue de la caisse
 	bool GetStatus() const { return status; }
 
 	// GetTempsFile
-	// Optient le temps d'attente de la caisse
+	// Retourne le temps d'attente de la caisse
 	// Intrant: -------
 	// Extrant: - Le temps d'attente de la caisse
 	int GetTempsFile() const { return tempsFile; }
@@ -144,7 +156,11 @@ public:
 	void AfficherCaisse(ofstream& flux);
 
 	// RetirerClientFile
+<<<<<<< HEAD
 	// Retir le premier client arriver en file
+=======
+	// Retire le premier client arriver en file
+>>>>>>> refs/remotes/origin/JO
 	// Intrant: -------
 	// Extrant: -------
 	void RetirerClientFile();

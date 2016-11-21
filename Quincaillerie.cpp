@@ -1,3 +1,12 @@
+//--------------------------------------------------------
+//
+// Quincaillerie.h
+//
+// Définition de la classe Quincaillerie qui permet de 
+// créer une instance de quincaillerie qui permet
+// d'ajouter ou enlever des clients à des caisses
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #include "Quincaillerie.h"
 #include <algorithm>
 #include <iostream>

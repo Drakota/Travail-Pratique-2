@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// Client.h
+//
+// Déclaration de la classe Client qui permet de 
+// créer un client pour être ajouter dans une caisse
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #pragma once
 #include <string>
 #include <vector>

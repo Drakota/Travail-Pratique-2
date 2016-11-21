@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// ClientCommercial.h
+//
+// Définition de la classe ClientCommercial qui permet de 
+// créer un ClientCommercial
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #include "ClientCommercial.h"
 
 ClientCommercial::ClientCommercial(int NumClient, string type, string CodePostale, string Courriel, string Nom, string Prenom, float Rabais) : Client(NumClient, CodePostale, type)

@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// Prototype.h
+//
+// Déclaration de la classe Prototype qui conserve les prototypes
+// du main
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #pragma once
 #include "SourceLecture.h"
 #include <iostream>

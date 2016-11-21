@@ -1,7 +1,7 @@
 // Main.cpp
 // Jonathan Bouchard & Pierre-Anthony Houle
 // 04 novembre 2016
-// Créer une file de clients
+// Créer une file de clients dans une instance de Quincaillerie
 
 #include "Constantes.h"
 #include "Quincaillerie.h"
@@ -24,7 +24,7 @@ int main()
 	Quincaillerie magasin(NBCAISSES);	// La quincaillerie
 	ofstream fichierEcriture;			// Le fichier du rapport final
 
-										// Traiter le fichier client
+	// Traiter le fichier client
 	DemanderFichier(CLIENT, fichierClients, fichierEcriture);
 	LireFichier(CLIENT, fichierClients, magasin, vecClients, fichierEcriture);
 	// Traiter le fichier opération

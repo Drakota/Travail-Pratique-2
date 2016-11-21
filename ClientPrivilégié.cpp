@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// ClientPrivilégié.h
+//
+// Définition de la classe ClientPrivilégié qui permet de 
+// créer un ClientPrivilégié
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #include "ClientPrivilégié.h"
 
 ClientPrivilégié::ClientPrivilégié(int NumClient, string type, string CodePostale, string Email) : Client(NumClient, CodePostale, type)

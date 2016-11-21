@@ -1,3 +1,11 @@
+//--------------------------------------------------------
+//
+// ClientCommercial.h
+//
+// Déclaration de la classe ClientCommercial qui permet de 
+// créer un ClientCommercial
+// par Jonathan Boucard & Pierre-Anthony Houle, 2016
+//--------------------------------------------------------
 #pragma once
 #include "Client.h"
 

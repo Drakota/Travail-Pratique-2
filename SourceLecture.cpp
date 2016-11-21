@@ -34,7 +34,7 @@ void SourceLecture::Lire(vector<string> & vecElems)
 	stringstream ss(ligne);
 	do
 	{
-		getline(ss, elem, ARRET);
+		getline(ss, elem, ARRET); // Permet de retourner chaque paramètre de la ligne
 		if (elem != "")
 		{
 			elem = Trim(elem);
