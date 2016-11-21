@@ -9,24 +9,14 @@
 #include "ClientPrivilégié.h"
 #include "ClientCommercial.h"
 #include "SourceLecture.h"
+#include "Prototype.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 
-
-void DemanderFichier(bool i, SourceLecture& flecture, ofstream& fecriture);
-void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient, ofstream& flux);
-void CreerClient(vector<string> vectorElems, vector<Client*>& vecClient);
-void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vector<Client*> vecClient, ofstream& flux);
-void ÉcrireRapport(Quincaillerie& magasin, ofstream& flux);
-Client* GetClientByNum(vector<Client*> vecClients, int Num);
-
-
-/**Je vais peut etre bouger ste fonction la dans Quincaillerie**/
-void ÉcrireRapport(Quincaillerie& magasin, ofstream& flux)
+void StatusCaisse(Quincaillerie& magasin, ofstream& flux)
 {
-	int index;
 	for (int i = 0; i < magasin.GetVectorCaisse().size(); i++)
 	{
 		flux << "**************************************************" << endl;
@@ -34,6 +24,12 @@ void ÉcrireRapport(Quincaillerie& magasin, ofstream& flux)
 		magasin.GetCaisse(i).AfficherCaisse(flux);
 		flux << endl;
 	}
+}
+
+/**Je vais peut etre bouger ste fonction la dans Quincaillerie**/
+void EcrireStatsFinales(Quincaillerie& magasin, ofstream& flux)
+{
+	int index;		
 	flux << "@@@@@@@@@@@@@@@@@@@@@ STATS @@@@@@@@@@@@@@@@@@@@@@" << endl;
 	index = distance(magasin.GetVectorCaisse().begin(), magasin.GetCaissePlusClients()) + 1;
 	flux << "Caisse qui a eu le plus grand nombre de clients: Caisse " << index << endl;
@@ -63,8 +59,8 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 			{
 				if (magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).GetStatus() != OUVERT)
 				{
-					magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
-					magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
+					magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).OuvrirCaisse();
+					magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).SetEteOuvert(true);
 					flux << "--OUVERTURE DE LA CAISSE #" << vectorElems.at(1) << endl;
 				}
 				else flux << "CAISSE #" << vectorElems.at(1) << " DÉJÀ OUVERTE" << endl;
@@ -107,7 +103,7 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 				{
 					if (magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).GetStatus() != FERMÉ)
 					{
-						magasin.SetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
+						magasin.GetCaisse((stoi(vectorElems.at(1)) - 1)).FermerCaisse();
 						flux << "--FERMETURE DE LA CAISSE #" << vectorElems.at(1) << endl;
 					}
 					else flux << "CAISSE #" << vectorElems.at(1) << " DÉJÀ FERMÉ" << endl;
@@ -115,23 +111,25 @@ void ExecuterOperations(vector<string> vectorElems, Quincaillerie& magasin, vect
 				else throw exception("Le numéro de la caisse est invalide!");
 		}
 		else throw exception("Type d'opération inconnu...");
+
+		StatusCaisse(magasin, flux);
 	}
 	catch (exception e) { flux << e.what() << endl; }
 }
 
-void DemanderFichier(bool i, SourceLecture& fichier, ofstream& fecriture)
+void DemanderFichier(TypeFichier typeFichier, SourceLecture& fichier, ofstream& fecriture)
 {
-	string nomFichier; // Variable qui retient le nom du fichier
+	string nomFichier;		// Variable qui retient le nom du fichier
 	do
 	{
 		cout << "------------------------------------" << endl;
-		if (i == CLIENT) cout << "Entrez un nom de fichier de clients: " << endl;
-		else if (i == OPÉRATIONS) cout << "Entrez un nom de fichier d'opérations: " << endl;
+		if (typeFichier == CLIENT) cout << "Entrez un nom de fichier de clients: " << endl;
+		else if (typeFichier == OPERATIONS) cout << "Entrez un nom de fichier d'opérations: " << endl;
 		cout << "------------------------------------" << endl;
 		cin >> nomFichier;
 		fichier.SetNomSourceLecture(nomFichier);
 	} while (!fichier.EstCapableDeLire());
-	if (i == OPÉRATIONS) fecriture.open("Journal_" + nomFichier);
+	if (typeFichier == OPERATIONS) fecriture.open("Journal_" + nomFichier);
 }
 
 void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<Client*>& vecClient, ofstream& flux)
@@ -141,7 +139,7 @@ void LireFichier(bool i, SourceLecture& fichier, Quincaillerie& magasin, vector<
 		vector<string> vecElems;
 		fichier.Lire(vecElems);
 		if (i == CLIENT) CreerClient(vecElems, vecClient);
-		else if (i == OPÉRATIONS) ExecuterOperations(vecElems, magasin, vecClient, flux);
+		else if (i == OPERATIONS) ExecuterOperations(vecElems, magasin, vecClient, flux);
 	} while (fichier.PeutEncoreLire());
 }
 
@@ -160,18 +158,19 @@ Client* GetClientByNum(vector<Client*> vecClients, int Num)
 
 int main()
 {
-	locale::global(locale("")); // Permet les charactères français
-	vector<Client*> vecClients;
-	SourceLecture fichierClients;
-	SourceLecture fichierOpérations;
-	Quincaillerie magasin(NBCAISSES);
-	ofstream fichierEcriture;
+	locale::global(locale(""));			// Permet les charactères français
+	vector<Client*> vecClients;			// Vecteur contenant les clients
+	SourceLecture fichierClients;		// Le fichier des clients
+	SourceLecture fichierOpérations;	// Le fichier des opérations
+	Quincaillerie magasin(NBCAISSES);	// La quincaillerie
+	ofstream fichierEcriture;			// Le fichier du rapport final
 
+	// Traiter le fichier client
 	DemanderFichier(CLIENT, fichierClients, fichierEcriture);
 	LireFichier(CLIENT, fichierClients, magasin, vecClients, fichierEcriture);
-
-	DemanderFichier(OPÉRATIONS, fichierOpérations, fichierEcriture);
-	LireFichier(OPÉRATIONS, fichierOpérations, magasin, vecClients, fichierEcriture);
-
-	ÉcrireRapport(magasin, fichierEcriture);
+	// Traiter le fichier opération
+	DemanderFichier(OPERATIONS, fichierOpérations, fichierEcriture);
+	LireFichier(OPERATIONS, fichierOpérations, magasin, vecClients, fichierEcriture);
+	// Écrire le rapport final
+	EcrireStatsFinales(magasin, fichierEcriture);
 }

@@ -27,14 +27,12 @@ vector<Caisse>::iterator Quincaillerie::GetCaissePlusAttente()
 
 Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
 {
-	int indiceDepart;
-	bool caisseOuverte = false;
-	// Si commercial on prend premiere caisse
-	// si non on prend la deuxieme
+	int indiceDepart;								// L'indice de la première caisse selon le type de client
 	if (commercial == true) indiceDepart = 0;
 	else indiceDepart = 1;
 
-	Caisse* cRapide = &GetCaisse(indiceDepart);
+	bool caisseOuverte = false;						// True si une caisse est ouverte dans la recherche si non false
+	Caisse* cRapide = &GetCaisse(indiceDepart);		// Un pointeur sur la caisse aillant le moins de temps d'attente
 
 	for (int i = indiceDepart; i < GetVectorCaisse().size(); i++)
 	{
@@ -45,7 +43,12 @@ Caisse* Quincaillerie::GetCaissePlusRapide(bool commercial)
 				cRapide = &GetVectorCaisse().at(i);
 		}
 	}
+<<<<<<< HEAD
+
+	if (caisseOuverte == false && GetCaisse(indiceDepart).GetStatus() == OUVERT)
+=======
 	if (caisseOuverte == false && GetCaisse(0).GetStatus() == OUVERT)
+>>>>>>> refs/remotes/origin/JO
 		caisseOuverte = true;
 	if (!caisseOuverte)
 		throw exception("Il n'y a aucune caisse d'ouverte!");
