@@ -14,7 +14,7 @@ class Caisse
 	bool status;			// Statue de la caisse (Fermer/Ouvert)
 	int tempsFile;			// Temps d'attente de la ligne
 	int tempsFileTotal;
-	bool ÈtÈOuvert;
+	bool eteOuvert;
 	float totalAchats;
 	int nbClientServis;
 	int nbClientsNonServis;
@@ -28,7 +28,7 @@ public:
 	////////////////////////////////////////////////////
 	// Mutateur
 
-	void SetEteOuvert(bool e) { ÈtÈOuvert = e; }
+	void SetEteOuvert(bool e) { eteOuvert = e; }
 	void SetTotalAchats(float e) { totalAchats = e; }
 	void SetNbClientsServis(int e) { nbClientServis = e; }
 	void SetNbClientsNonServis(int e) { nbClientsNonServis = e; }
@@ -52,7 +52,7 @@ public:
 	int GetNbClientsServis() const { return nbClientServis; }
 	int GetNbClientsNonServis() const { return nbClientsNonServis; }
 	int GetTempsFileTotal() const { return tempsFileTotal; }
-	bool Get…tÈOuvert() const { return ÈtÈOuvert; };
+	bool Get…tÈOuvert() const { return eteOuvert; };
 	float GetTotalAchats() const { return totalAchats; }
 	//
 	////////////////////////////////////////////////////

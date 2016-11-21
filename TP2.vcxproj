@@ -158,6 +158,7 @@
     <ClInclude Include="ClientParticulier.h" />
     <ClInclude Include="ClientPrivilégié.h" />
     <ClInclude Include="Constantes.h" />
+    <ClInclude Include="Prototype.h" />
     <ClInclude Include="Quincaillerie.h" />
     <ClInclude Include="SourceLecture.h" />
   </ItemGroup>

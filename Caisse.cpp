@@ -1,7 +1,7 @@
 #include "Caisse.h"
 #include "Constantes.h"
 
-Caisse::Caisse() : tempsFile(0), status(FERMÉ), nbClientServis(0), étéOuvert(false), totalAchats(0), nbClientsNonServis(0), tempsFileTotal(0)
+Caisse::Caisse() : tempsFile(0), status(FERMÉ), nbClientServis(0), eteOuvert(false), totalAchats(0), nbClientsNonServis(0), tempsFileTotal(0)
 {
 }
 

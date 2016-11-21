@@ -13,7 +13,7 @@ protected:
 	int tempsAttenteClient;		// Temps que va prendre le client à la caisse
 	string codePostal;			// Le code postal du client
 	string clienType;			// Le type du client
-	float montantAchat;
+	float montantAchat;			// Le montant d'achat du client
 	//
 	////////////////////////////////////////////////////
 
@@ -37,18 +37,50 @@ public:
 
 	////////////////////////////////////////////////////
 	// Mutateur
+
 	// SetTempsClient
-	// Ajoute le temps d'attente du client
+	// Met le temps d'attente du client
 	// Intrant: - Un nombre de secondes
-	// Extrant: ------
+	// Extrant: -------
 	void SetTempsClient(int tempsEnseconde) { tempsAttenteClient = tempsEnseconde; }
+
+	// SetMontantAchat
+	// Met le montant qu'il doit payer
+	// Intrant: - Le montant
+	// Extrant: - Le montant du client
+	void SetMontantAchat(float montant) { montantAchat = montant; }
 	//
 	////////////////////////////////////////////////////
-	void SetMontantAchat(float montant) { montantAchat = montant; }
 
+	// GetPourcentageRabais
+	// Retourne pourcentage du rabais du client
+	// Intrant: -------
+	// Extrant: -------
 	virtual float GetPourcentageRabais() { return 1; }
-	float GetMontantAchat() { return montantAchat; }
+
+	// GetMontantAchat
+	// Retourne le montant d'achat du client
+	// Intrant: -------
+	// Extrant: - Le montant d'achat du client
+	float GetMontantAchat() const { return montantAchat; }
+
+	// GetNumClient
+	// Retourne le numéro du client
+	// Intrant: -------
+	// Extrant: - Le numéro du client
 	int GetNumClient() const { return numClient; }
+
+	// GetTempsAttenteClient
+	// Retourne le temps d'attente d'un client
+	// Intrant: -------
+	// Extrant: Le temps d'attente d'un client
 	int GetTempsAttenteClient() const { return tempsAttenteClient; }
+
+	// GetTypeClient
+	// Retourne le type de client
+	// Intrant: -------
+	// Extrant: Le type de client
 	string GetTypeClient() const { return clienType; }
-};
+	//
+	////////////////////////////////////////////////////
+}
